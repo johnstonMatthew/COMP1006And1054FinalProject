@@ -1,7 +1,7 @@
 <?php
     $title = "Smoke Terms of Service || Matthew Johnston & Cole Winkler-Sawdon";
     $description = "Terms of Service for COMP1006/COMP1054 Final Project";
-    include('includes/navigation/header.php');
+    require('includes/navigation/header.php');
 ?>
    
 <main>
@@ -85,6 +85,6 @@
 </main>
 
 <?php
-    include('includes/navigation/footer.html');
+    require('includes/navigation/footer.php');
 ?>
  

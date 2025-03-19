@@ -1,10 +1,13 @@
-<?php
+<?php 
     $server = "localhost";
-    $username = 'root';
+    $userName = "root";
     $password = "mysql";
-    $database = "smoke";
+    $databaseName = "smoke";
 
-    $connection;
-
-
+    try {
+        $connection = new PDO("mysql:host=$server; dbname=$databaseName", "$userName", "$password");
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $_ENV) {
+        die("<p> Could not connect to the database </p>");
+    }
 ?>

@@ -1,7 +1,7 @@
 <?php
     $title = "About Us || Matthew Johnston & Cole Winkler-Sawdon";
     $description = "Look at the history of Smoke and contact us if you have any issues";
-    include("includes/navigation/header.php");
+    require("includes/navigation/header.php");
 ?>
 <!-- Page Main -->
 <main>
@@ -42,5 +42,5 @@
 </main>
 
 <?php
-    include("includes/navigation/footer.html");
+    require("includes/navigation/footer.php");
 ?>

@@ -1,7 +1,42 @@
 <?php
     $title = "Smoke Homepage || Matthew Johnston & Cole Winkler-Sawdon"; 
     $description = "This is the Homepage for our Final Project";
-    include('includes/navigation/header.php');
+    require('includes/navigation/header.php');
+    require_once('includes/php/database.php');
+    require_once('includes/php/validate.php');
+
+    $validate = new Validate();
+    
+    if (isset($_POST['logInSubmit'])) {
+        session_start();
+        echo "<p> In Isset Session </p> ";
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $logInSuccess = false;
+
+        $accountTable = $connection->prepare('SELECT * FROM userAccounts');
+        $accountTable->execute();
+        $accountData = $accountTable->fetchAll();
+
+        foreach ($accountData as $key=> $row ) {
+            if ($email === $row['email'] && $password === $row['password']) {
+                $logInSuccess = true;
+                $accountName = $row['accountName'];
+            }
+        }
+
+        if ($logInSuccess) {
+            echo "Log in was Successful";
+            $_SESSION['accountName'] = $accountName;
+            $loggedUser = $_SESSION['accountName'];
+        } else {
+            echo "<p> Log in Failed </p>";
+            echo "<p> Email and/or Password Field was Incorrect </p>";
+            echo "<a href='javascript:self.history.back();'> Go Back </a>";
+        }
+    }
+    
 ?>
 <!-- Title -->
 <div class="title">
@@ -30,6 +65,6 @@
 
 </main>
 <?php 
-    include('includes/navigation/footer.html');
+    require('includes/navigation/footer.php');
 ?>
  

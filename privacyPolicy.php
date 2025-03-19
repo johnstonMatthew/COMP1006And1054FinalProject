@@ -1,7 +1,7 @@
 <?php
     $title = "Smoke Privacy Policy || Matthew Johnston & Cole Winkler-Sawdon"; 
     $description = "This is the Privacy Policy for our Final Project";
-    include('includes/navigation/header.php');
+    require('includes/navigation/header.php');
 ?>
 
 <main>
@@ -88,5 +88,5 @@
 </main>
 
 <?php
-    include('includes/navigation/footer.html');
+    require('includes/navigation/footer.php');
 ?>
