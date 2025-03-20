@@ -57,6 +57,10 @@
         $validate = new Validate();
 
         if (isset($_POST['registerSubmit'])) {
+            $accountTable = $connection->prepare("SELECT * FROM useraccount");
+            $accountTable->execute();
+            $accountData = $accountTable->fetchAll();
+
             $accountName = $_POST['accountName'];
             $dateOfBirth = $_POST['dateOfBirth'];
             $email = $_POST['email'];
@@ -74,31 +78,30 @@
             $validFirstName = $validate->validName($firstName);
             $validLastName = $validate->validName($lastName);
             $validPassword = $validate->validPassword($password);
+            $availableEmail = $validate->availableEmail($email, $accountData);
 
             if ($emptyMessage != "") {
                 echo "<p>$emptyMessage</p>";
                 echo "<a href='javascript:self.history.back();'> Go Back </a>";
-            }
-            elseif (!$dateOfBirth) {
+            } elseif ($dateOfBirth == false) {
                 echo "<p>Date of birth is invalid</p>";
                 echo "<a href='javascript:self.history.back();'> Go Back </a>";
-            }
-            elseif (!$validEmail) {
+            } elseif ($validEmail == false) {
                 echo "<p>Email Field is invalid</p>";
                 echo "<a href='javascript:self.history.back();'> Go Back </a>";
-            }
-            elseif (!$validFirstName) {
+            } elseif ($validFirstName == false) {
                 echo "<p>First name field is invalid</p>";
                 echo "<a href='javascript:self.history.back();'> Go Back </a>";
-            }
-            elseif (!$validLastName) {
+            } elseif ($validLastName == false) {
                 echo "<p>Last name field is invalid</p>";
                 echo "<a href='javascript:self.history.back();'> Go Back </a>";
-            } 
-            else if  (!$validPassword) {
+            } else if  ($validPassword == false) {
                 echo "<p> Password field is invalid</p>";
                 echo "<a href='javascript:self.history.back();'> Go Back </a>";
-            } 
+            } else if ($availableEmail == false) {
+                echo "<p> Email Entered Already was Used </p>";
+                echo "<a href='javascript:self.history.back();'> Go Back </a>";
+            }
             else {
                 $query = $connection->prepare("INSERT INTO useraccount (accountName, dateOfBirth, email, fName, lName, registerPass, profilePicture) VALUES ('$accountName', '$dateOfBirth', '$email', '$firstName', '$lastName', '$password', '$filePath')");
                 $validFileExt = array("svg", "jpeg", "jpg", "png");

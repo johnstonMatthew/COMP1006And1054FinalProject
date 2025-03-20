@@ -1,0 +1,17 @@
+-------- To Do PHP --------
+- Implement Profile Editing and Deleting
+- Implement Session and Logging In
+- Possibly Allow the User to Add a Review to a Game Being Viewed
+
+-------- CSS --------
+- Implement Responsive Design (Unfortunately)
+- Style all Pages
+    - Style Tables for Accounts and Games
+    
+
+-------- HTML ---------
+- Implement a View All Games Page
+- Implement Forms Allowing the User to Enter Info to Edit/Update Info
+
+-------- Other ---------
+- Create Cover 'Art' for Games

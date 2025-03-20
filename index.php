@@ -56,10 +56,10 @@
         <section id="vrTitlesContainer" class="splitThree">
             <a> <h2> VR Titles </h2> </a>
         </section>
-
+    </div>
+    <div>
         <section id="specialContainer">
             <a> <h2> Specials </h2> </a>
-            
         </section>
     </div>
 

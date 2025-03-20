@@ -17,9 +17,9 @@
     <body>
         <header>
             <img src="images/placeholder.png" alt="Placeholder Image">
-            <form>
-                <input type="text">
-                <input type="submit">
+            <form method="POST" action="view.php" >
+                <input type="text" name="searchGameName" id="searchGameName" Placeholder="Search for Games Here">
+                <input type="submit" name="searchSubmit">
             </form>
             <nav>
                 <menu>
@@ -27,6 +27,7 @@
                     <li><a href="about.php"> About </a></li>
                     <li><a href="login.php"> Login </a></li>
                     <li><a href="register.php"> Register </a></li>
+                    <li><a href="profileManagement.php"> Manage Profiles </a></li>
                 </menu> 
             </nav>
 

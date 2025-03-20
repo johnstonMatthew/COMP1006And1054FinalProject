@@ -85,5 +85,16 @@
             }
             return false;
         }
+
+        public function availableEmail ($email, $table) {
+
+            foreach ($table as $key=> $row) {
+                if ($email === $row['email']) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 ?>
