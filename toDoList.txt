@@ -2,16 +2,19 @@
 - Implement Profile Editing and Deleting
 - Implement Session and Logging In
 - Possibly Allow the User to Add a Review to a Game Being Viewed
+- When a Game Name is Clicked in the View all Games Page it Will Take you to view.php With That Game Selected
 
 -------- CSS --------
 - Implement Responsive Design (Unfortunately)
 - Style all Pages
     - Style Tables for Accounts and Games
+
     
 
 -------- HTML ---------
-- Implement a View All Games Page
+- Implement a View all Games Page 
 - Implement Forms Allowing the User to Enter Info to Edit/Update Info
 
 -------- Other ---------
-- Create Cover 'Art' for Games
+- Create Cover 'art' for Games
+- Create More Reviews to Populate the Review Table
