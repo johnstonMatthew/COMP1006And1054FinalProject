@@ -1,6 +1,6 @@
 -------- To Do PHP --------
 - Implement Profile Editing and Deleting
-- Implement Session and Logging In
+- Implement Session and Logging In (Started)
 - Possibly Allow the User to Add a Review to a Game Being Viewed
 - When a Game Name is Clicked in the View all Games Page it Will Take you to view.php With That Game Selected
 
@@ -8,8 +8,6 @@
 - Implement Responsive Design (Unfortunately)
 - Style all Pages
     - Style Tables for Accounts and Games
-
-    
 
 -------- HTML ---------
 - Implement a View all Games Page 

@@ -56,7 +56,7 @@
                 $reviewTable = $connection->prepare("SELECT reviews.gameId, profilePicture, accountName, subject, reviews.description AS reviewDescription, rating, reviewDate 
                 FROM reviews 
                 INNER JOIN games ON reviews.gameId = games.gameId 
-                INNER JOIN useraccount ON reviews.accountId = useraccount.accountId
+                INNER JOIN useraccounts ON reviews.accountId = useraccounts.accountId
                 WHERE games.gameId = $gameId");
                 $reviewTable->execute();
                 $reviewData = $reviewTable->fetchAll();
@@ -78,7 +78,9 @@
                         echo "<h4> $reviewDate </h4>";
                     echo "</div>";
                 }
+                
             }
+            $connection = null;
         ?>
     
     <div>

@@ -2,19 +2,44 @@
     $title = "Smoke Login Page || Matthew Johnston & Cole Winkler-Sawdon ";
     $description = "Login to your smoke account";
     require("includes/navigation/header.php");
+    require_once ('./includes/php/database.php');
+
+    if (isset($_POST['logInSubmit']) ) {
+        $email = $_POST['email'];
+        $password = hash('sha512', $_POST['password']);
+
+        $results = $connection->prepare("SELECT accountId FROM useraccounts WHERE email = '$email' AND password = '$password'");
+
+        $results->execute();
+
+        $rowCount = $results -> rowCount();
+
+        if ($rowCount == 1) {
+            echo "Login was Successful";
+            foreach ($results as $key => $row) {
+                session_start();
+                $_SESSION['accountId'] = $row['accountId'];
+                Header('Location: profileManagement.php');
+            }
+        } else {
+            echo " Login was Unsuccessful";
+        }
+
+        $connection = null;  
+    }
 ?>
 <main>
     <!-- login form -->
-    <form class="login-form" method="POST" action="index.php">
+    <form class="login-form" method="post">
         <fieldset>
             <legend>Login to Your Smoke Account</legend>
             <div>
                 <label for="email">Email</label>
-                <input type="email" id="email">
+                <input type="email" name="email" id="email" required>
             </div>
             <div>
                 <label for="password">Password</label>
-                <input type="password" id="password">
+                <input type="password" name="password" id="password" required>
             </div>
             <div id="buttonContainer">
                 <button type="submit" name="logInSubmit">Login</button>

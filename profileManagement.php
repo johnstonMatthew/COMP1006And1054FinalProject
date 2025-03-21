@@ -4,7 +4,7 @@
     require('includes/navigation/header.php');
     require_once('includes/php/database.php');
 
-    $accountTable = $connection->prepare("SELECT * FROM useraccount");
+    $accountTable = $connection->prepare("SELECT * FROM useraccounts");
     $accountTable->execute();
     $accountData = $accountTable->fetchAll();
 ?>
@@ -20,7 +20,6 @@
                 <th> Email </th>
                 <th> First Name </th>
                 <th> Last Name </th>
-                <th> Password </th>
             </tr>
         </thead>
 
@@ -33,7 +32,6 @@
                     $email = $row['email'];
                     $fName = $row['fName'];
                     $lName = $row['lName'];
-                    $password = $row['registerPass'];
                     $profilePicture = $row['profilePicture'];
 
                     echo "<tr>";
@@ -44,9 +42,9 @@
                     echo "<th> $email </th>";
                     echo "<th> $fName </th>";
                     echo "<th> $lName </th>";
-                    echo "<th> $password </th>";
                     echo "</tr>";
                 }
+                $connection = null
             ?>
         </tbody>
     </table>

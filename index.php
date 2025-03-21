@@ -35,6 +35,7 @@
             echo "<p> Email and/or Password Field was Incorrect </p>";
             echo "<a href='javascript:self.history.back();'> Go Back </a>";
         }
+        $connection = null;
     }
     
 ?>

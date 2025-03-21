@@ -1,13 +1,13 @@
 CREATE DATABASE smoke;
 
-CREATE TABLE useraccount (
+CREATE TABLE useraccounts (
     accountId INT NOT NULL AUTO_INCREMENT,
     accountName VARCHAR(150) NOT NULL,
     dateOfBirth DATE NOT NULL,
     email VARCHAR(50) NOT NULL,
     fName VARCHAR(50) NOT NULL,
     lName VARCHAR(100) NOT NULL,
-    registerPass VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     profilePicture VARCHAR(255) NOT NULL,
     PRIMARY KEY (accountId)
 );
@@ -33,7 +33,7 @@ CREATE TABLE reviews (
     reviewDate DATE NOT NULL,
     PRIMARY KEY (reviewId),
     FOREIGN KEY (gameId) REFERENCES games(gameId),
-    FOREIGN KEY (accountId) REFERENCES userAccount(accountId)
+    FOREIGN KEY (accountId) REFERENCES userAccounts(accountId)
 );
 
 INSERT INTO games (name, description, genre, publishDate, publisher, coverImage) VALUES 

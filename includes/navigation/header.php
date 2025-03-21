@@ -16,7 +16,7 @@
     </head>
     <body>
         <header>
-            <img src="images/placeholder.png" alt="Placeholder Image">
+            <img src="images/companyLogo.png" alt="Smoke Logo">
             <form method="POST" action="view.php" >
                 <input type="text" name="searchGameName" id="searchGameName" Placeholder="Search for Games Here">
                 <input type="submit" name="searchSubmit">
