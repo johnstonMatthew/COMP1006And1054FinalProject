@@ -46,11 +46,11 @@
             </div>
 
             <div>
-                <label> Add Profile Picture </label>
+                <label for="file"> Add Profile Picture </label>
                 <input type="file" name="file">
             </div>
 
-            <div id="buttonContainer">
+            <div class="buttonContainer">
                 <button type="submit" name="registerSubmit"> Register </button>
                 <button type="reset"> Reset </button>
             </div>

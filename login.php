@@ -8,7 +8,7 @@
         $email = $_POST['email'];
         $password = hash('sha512', $_POST['password']);
 
-        $results = $connection->prepare("SELECT accountId FROM useraccounts WHERE email = '$email' AND password = '$password'");
+        $results = $connection->prepare("SELECT accountId, accountName FROM useraccounts WHERE email = '$email' AND password = '$password'");
 
         $results->execute();
 
@@ -19,6 +19,7 @@
             foreach ($results as $key => $row) {
                 session_start();
                 $_SESSION['accountId'] = $row['accountId'];
+                $_SESSION['accountName'] = $row['accountName'];
                 Header('Location: profileManagement.php');
             }
         } else {
@@ -41,7 +42,7 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" required>
             </div>
-            <div id="buttonContainer">
+            <div class="buttonContainer">
                 <button type="submit" name="logInSubmit">Login</button>
             </div>
         </fieldset>

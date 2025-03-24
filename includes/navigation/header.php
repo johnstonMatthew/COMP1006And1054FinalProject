@@ -30,6 +30,16 @@
                     <li><a href="profileManagement.php"> Manage Profiles </a></li>
                 </menu> 
             </nav>
-
-            <p> Welcome <p>
+            <div>
+                <?php 
+                    session_start(); 
+                    if (isset($_SESSION['accountName'])) {
+                        $username = $_SESSION['accountName']; 
+                        echo "<p> $username </p>"; 
+                    }
+                ?> 
+                <form method="POST" action="logout.php"> 
+                    <button type="submit"> Log Out </button>
+                </form>
+            </div>
         </header>

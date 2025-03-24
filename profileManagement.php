@@ -3,10 +3,76 @@
     $description = "The Manage Accounts Page";
     require('includes/navigation/header.php');
     require_once('includes/php/database.php');
+    require_once('includes/php/validate.php');
+    require_once('includes/php/utilities.php');
 
-    $accountTable = $connection->prepare("SELECT * FROM useraccounts");
-    $accountTable->execute();
-    $accountData = $accountTable->fetchAll();
+    $validate = new Validate();
+    $utilities = new Utilities();
+
+    if (!isset($_SESSION['accountId'])) {
+        Header("Location: index.php");
+        exit;
+    }
+
+    $accountId = $_SESSION['accountId'];
+
+    if (isset($_POST['updateSubmit'])) {
+        $newUsername = $_POST['uAccountName'];
+        $newDateOfBirth = $_POST['uDateOfBirth'];
+        $newEmail = $_POST['uEmail'];
+        $newfName = $_POST['ufName'];
+        $newlName = $_POST['ulName'];
+        $newProfilePicture = $_FILES['file']['name'];
+
+        $emptyMessage = $validate->checkEmpty($_POST, array('uAccountName', 'uDateOfBirth', 'uEmail', 'ufName', 'ulName'));
+        $validBirthDate = $validate->validDateOfBirth($newDateOfBirth);
+        $validEmail = $validate->validEmail($newEmail);
+        $validFirstName = $validate->validName($newfName);
+        $validLastName = $validate->validName($newlName);
+
+        if ($newProfilePicture == null) {
+            if ($emptyMessage != "") {
+                echo "<p>$emptyMessage</p>";
+            } elseif ($validBirthDate == false) {
+                echo "<p>Date of birth is invalid</p>";
+            } elseif ($validEmail == false) {
+                echo "<p> Email Field is invalid </p>";
+            } elseif ($validFirstName == false) {
+                echo "<p> First name field is invalid </p>";
+            } elseif ($validLastName == false) {
+                echo "<p> Last name field is invalid </p>";
+            } else { 
+                $result = $connection->prepare("UPDATE useraccounts SET accountName = '$newUsername', dateOfBirth = '$newDateOfBirth', email = '$newEmail', fName = '$newfName', lName = '$newlName' WHERE accountId = '$accountId'");
+                $result->execute();
+            }
+        } else {
+            $filePath = './uploads/' . $newProfilePicture;
+            $fileExt = pathinfo($filePath, PATHINFO_EXTENSION);
+            $fileExt = strtolower($fileExt);
+
+            $query = $connection->prepare("UPDATE useraccounts SET accountName = '$newUsername', dateOfBirth = '$newDateOfBirth', email = '$newEmail', fName = '$newfName', lName = '$newlName', profilePicture = '$filePath' WHERE accountId = '$accountId'");
+                $validFileExt = array("svg", "jpeg", "jpg", "png");
+                if (in_array($fileExt, $validFileExt)) {
+                    if (move_uploaded_file($_FILES['file']['tmp_name'], $filePath)) {
+                        $query->execute();
+                        echo "Account was Successfully Updated";
+                    }
+                }
+        }
+    }
+
+    $loggedInUserData = $utilities->returnData("SELECT * FROM useraccounts WHERE accountId = '$accountId'", $connection);
+    
+
+    foreach ($loggedInUserData as $key=> $row) {
+        $currentUsername = $row['accountName'];
+        $currentDateOfBirth = $row['dateOfBirth'];
+        $currentEmail = $row['email'];
+        $currentfName = $row['fName'];
+        $currentlName = $row['lName'];
+        $currentProfilePicture = $row['profilePicture'];
+    }
+
 ?>
 
 <main> 
@@ -25,6 +91,7 @@
 
         <tbody> 
             <?php 
+                $accountData = $utilities->returnData("SELECT * FROM useraccounts", $connection);
                 foreach ($accountData as $key => $row) {
                     $accountId = $row['accountId'];
                     $accountName = $row['accountName'];
@@ -49,6 +116,55 @@
         </tbody>
     </table>
 
+    <div id="editAndDeleteContainer"> 
+        <form method="POST" enctype="multipart/form-data">
+            <fieldset> 
+                <h3> Edit Profile </h3>
+
+                <div>
+                <label for="uAccountName"> Account Name </label>
+                <input type="text" name="uAccountName" id="uAccountName" value="<?php echo "$currentUsername"; ?>">
+            </div>
+
+            <div>
+                <label for="uDateOfBirth"> Date of Birth </label>
+                <input type="date" name="uDateOfBirth" id="uDateOfBirth" value="<?php echo "$currentDateOfBirth"; ?>">
+            </div>
+
+            <div> 
+                <label for="uEmail"> Email </label>
+                <input type="email" name="uEmail" id="uEmail" value="<?php echo "$currentEmail"; ?>"> 
+            </div>
+
+            <div>
+                <label for="ufName"> First Name </label>
+                <input type="text" name="ufName" id="ufName" value="<?php echo "$currentfName"; ?>">
+            </div>
+
+            <div>
+                <label for="ulName"> Last Name </label>
+                <input type="text" name="ulName" id="ulName" value="<?php echo "$currentlName"; ?>">
+            </div>
+
+            <div>
+                <label for="file"> Add Profile Picture </label>
+                <input type="file" name="file">
+            </div>
+
+            <div class="buttonContainer">
+                <button type="submit" name="updateSubmit" id="updateSubmit"> Update </button>
+                <button type="reset"> Reset </button>
+            </div>
+            </fieldset> 
+        </form>
+
+        <form>
+            <fieldset> 
+                <h3> Delete Profile </h3>
+
+            </fieldset>
+        </form>
+    </div>
 </main>
 
 <?php

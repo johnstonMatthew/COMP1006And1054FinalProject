@@ -25,20 +25,29 @@
             //Convert Each of the Element of the Array Created Above Into an Integer
             $dateYear = (int)$dateArray[0];
             $dateMonth = (int)$dateArray[1];
-            $dateDay = (int)$dateArray[0];
+            $dateDay = (int)$dateArray[2];
+
+            $validYear = false;
+            $validMonth = false;
+            $validDay = false;
 
             //If the $dateYear is Between or Equal to 1900 and 2025, set $validYear to True
             if ($dateYear <= 2025 && $dateYear >= 1900) {
                 $validYear = true;
             }
             //If the $dateMonth is Between or Equal to 1 and 12, set $validMonth to True
-            if ($dateMonth <= 01 && $dateMonth >= 12 ){
+            if ($dateMonth >= 01 && $dateMonth <= 12 ){
                 $validMonth = true;
             }
             //If the $dateDay is Between or Equal to 1 and 31, set $validDay to True
-            if ($dateDay <= 01 && $dateDay >= 31 ){
+            if ($dateDay >= 01 && $dateDay <= 31 ){
                 $validDay = true;
             }
+
+            if ($validYear && $validMonth && $validDay ) {
+                return true;
+            }
+            return false;
         }
 
         public function validEmail ($email) {
@@ -93,8 +102,14 @@
                     return false;
                 }
             }
-
             return true;
+        }
+
+        public function validRating ($ratingValue) {
+            if (preg_match("/^[1-5]+$/", $ratingValue) ) {
+                return true;
+            }
+            return false;
         }
 
         public function samePasswords ($password1, $password2) {

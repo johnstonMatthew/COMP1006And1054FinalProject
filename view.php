@@ -4,10 +4,19 @@
     $description = "This is the page where you can view all the games on smoke";
     require('includes/navigation/header.php');
     require_once('includes/php/database.php');
+    require_once('includes/php/validate.php');
 
-    if (isset($_POST['searchSubmit'])) {
-        $search = $_POST['searchGameName'];
+    $validate = new Validate();
 
+    if (isset($_POST['searchSubmit']) || isset($_SESSION['search'])) {
+
+        if (isset($_POST['searchSubmit'])) {
+            $search = $_POST['searchGameName'];
+            $_SESSION['search'] = $_POST['searchGameName'];
+        } else if (isset($_SESSION['search'])){
+            $search = $_SESSION['search'];
+        }
+        
         if ($search != "") {
             $gameTable = $connection->prepare("SELECT * FROM games WHERE name LIKE '$search%' LIMIT 1");
             $gameTable->execute();
@@ -15,6 +24,7 @@
 
             foreach ($gameData as $key=> $row ) {
                 $gameId = $row['gameId'];
+                $_SESSION['gameId'] = $row['gameId'];
                 $gameName = $row['name'];
                 $description = $row['description'];
                 $genre = $row['genre'];
@@ -23,11 +33,11 @@
                 $coverImage = $row['coverImage'];
             }
         } else {
-            echo " <p> Empty Search Entered </p>";
+            Header("Location: viewAllGames.php");
+            exit;
         }
 
     }
-
 ?>
 
 <main> 
@@ -80,10 +90,61 @@
                 }
                 
             }
-            $connection = null;
         ?>
     
     <div>
+
+    <form method="POST"> 
+        <fieldset> 
+            <div> 
+                <label for="subject"> Subject </label>
+                <input type="text" name="subject" id="subject" required>
+            </div>
+
+            <div> 
+                <label for="description"> Description </label>
+                <textarea type="textarea" name="description" id="description" required> </textarea>
+            </div>
+
+            <div> 
+                <label for="rating"> Rating </label>
+                <input type="number" name="rating" id="rating" min="1" max="5" required>
+            </div>
+
+            <div id="buttonContainer">
+                <button type="submit" name="reviewSubmit"> Submit Review </button>
+                <button type="reset"> Reset </button>
+            </div>
+        </fieldset>
+
+        <?php 
+            if (isset($_POST['reviewSubmit']) and isset($_SESSION['accountId'])) {
+                $subject = $_POST['subject'];
+                $description = $_POST['description'];
+                $ratingValue = $_POST['rating'];
+                $reviewDate = date("Y-m-d");
+                $accountId = $_SESSION['accountId'];
+                $gameId = $_SESSION['gameId'];
+
+                $emptyMessage = $validate->checkEmpty($_POST, array("subject", "description", "rating"));
+                $validRating = $validate->validRating($ratingValue);
+
+                if ($emptyMessage != null) {
+                    echo "<p>$emptyMessage</p>";
+                } else if ($validRating == false) {
+                    echo "<p> Rating Must be Between 1 and 5 </p>";
+                } else {
+                    $query = $connection->prepare("INSERT INTO reviews (gameId, accountId, subject, description, rating, reviewDate) VALUES ('$gameId', '$accountId', '$subject', '$description', '$ratingValue', '$reviewDate')");
+
+                    $query->execute();
+
+                    echo "<p> Review Submitted </p>";
+                    $connection = null;
+                }
+                $connection = null;
+            }
+        ?>
+    </form>
 </main>
 
 <?php 
