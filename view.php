@@ -8,14 +8,16 @@
 
     $validate = new Validate();
 
-    if (isset($_POST['searchSubmit']) || isset($_SESSION['search'])) {
+    if (isset($_POST['searchSubmit']) || isset($_SESSION['search']) || isset($_POST['viewGame'])) {
 
         if (isset($_POST['searchSubmit'])) {
             $search = $_POST['searchGameName'];
             $_SESSION['search'] = $_POST['searchGameName'];
+        } else if (isset($_POST['viewGame'])) {
+            $search = $_POST['gameName'];
         } else if (isset($_SESSION['search'])){
             $search = $_SESSION['search'];
-        }
+        } 
         
         if ($search != "") {
             $gameTable = $connection->prepare("SELECT * FROM games WHERE name LIKE '$search%' LIMIT 1");
@@ -43,15 +45,16 @@
 <main> 
     <?php 
         if ($search != "") {
-            echo '<img src="' . $coverImage . '" alt="image">'; 
-            echo "<h2> $gameName </h2>";
+            echo "<div class='coverImageContainer'>";
+                echo '<img class="gameCoverImage" src="' . $coverImage . '" alt="image">'; 
+                echo "<h2> $gameName </h2>
+                 </div>";
 
             echo "<div>"; 
                 echo "<div id='gameInfoContainer'>";
                     echo "<p> $genre </p>"; 
                     echo "<p> $publishDate </p>"; 
                     echo "<p> $publisher </p>"; 
-                    echo "<p> $coverImage </p>"; 
                 echo "</div>";
 
                 echo "<div id='descriptionContainer'>"; 

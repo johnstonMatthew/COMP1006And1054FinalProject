@@ -65,7 +65,10 @@
         $confirmValue = $_POST['confirmDelete'];
         echo "<p> $confirmValue </p>";
         if ($confirmValue === "confirm") {
+            $result = $connection->prepare("DELETE FROM reviews WHERE accountId = '$accountId'");
             $query = $connection->prepare("DELETE FROM useraccounts WHERE accountId = '$accountId' ");
+            
+            $result->execute();
             $query->execute();
             echo "<p> Account has Been Deleted </p>";
 

@@ -1,7 +1,4 @@
--------- To Do PHP --------
-- When a Game Name is Clicked in the View all Games Page it Will Take you to view.php With That Game Selected 
-^^^^ Actually Might Be Able to Do This With a Hidden Input Element Storing the GameId
-- Allow the User to Add an Account Without a Profile Picture
+-------- PHP --------
 
 -------- CSS --------
 - Implement Responsive Design (Unfortunately)
@@ -11,5 +8,5 @@
 -------- HTML ---------
 
 -------- Other ---------
-- Create Cover 'art' for Games
+- Still Need Elon Musk Conquers Capitialism Cover Art
 - Create More Reviews to Populate the Review Table

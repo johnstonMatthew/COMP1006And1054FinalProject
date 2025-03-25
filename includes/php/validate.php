@@ -60,7 +60,7 @@
 
         public function validName($name){
             //If the $name Variable Matches the Pattern Below, Return True
-            if (preg_match("/^[a-zA-z]+$/", $name)) {
+            if (preg_match("/^[a-zA-z]{1,}+$|[a-zA-z]{1,}\s[a-zA-z]{1,}+$|[a-zA-z]{1,}-[a-zA-z]{1,}+$/", $name)) {
                 return true;
             }
             return false;

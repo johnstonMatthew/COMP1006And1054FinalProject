@@ -32,11 +32,20 @@
             $publisher = $row['publisher'];
             $coverImage = $row['coverImage'];
             echo "<tr>";
-                echo '<td><img src="' . $coverImage . '" alt="image"> </td>'; 
+                echo '<td> <div class="coverImageContainer"> 
+                                <img class="gameCoverImage" src="' . $coverImage . '" alt="image"> 
+                            </div> 
+                      </td>'; 
                 echo "<td> $gameName </td>";
                 echo "<td> $genre </td>"; 
                 echo "<td> $publishDate </td>"; 
                 echo "<td> $publisher </td>";
+                echo "<td> 
+                        <form method='POST' action='view.php'> 
+                            <input type='hidden' name='gameName' value='$gameName'>
+                            <input type='submit' name='viewGame' value='View Game'>
+                        </form>
+                      </td>";
             echo "</tr>";
         }
         echo "</tbody>";

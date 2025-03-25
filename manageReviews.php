@@ -18,50 +18,65 @@
     $query = "SELECT * FROM reviews WHERE accountId = '$accountId'";
 
     $reviewData = $utilities->returnData($query, $connection);
+
+    $result = $connection->prepare($query);
+
+    $result->execute();
+
+    $rowCount = $result->rowCount();
 ?>
 
-<main> 
-    <table> 
-        <thead> 
-            <tr> 
-                <td> Subject </td>  
-                <td> Description </td> 
-                <td> Rating </td> 
-                <td> Date Published </td>   
-                <td> Edit Review </td> 
-                <td> Delete Review </td> 
-            </tr>
-        </thead>
-        <tbody>
+<main>
+    
+    
+    
         <?php
-            foreach ($reviewData as $key=> $row) {
-                $reviewId = $row['reviewId'];
-                $subject = $row['subject'];
-                $description = $row['description'];
-                $rating = $row['rating'];
-                $reviewDate = $row['reviewDate'];
+            if ($rowCount > 0) {
 
-            echo "
-                <tr> 
-                    <td> $subject </td>
-                    <td> $description </td>
-                    <td> $rating </td>
-                    <td> $reviewDate </td>
-                    <td>
-                        <form method='POST' action='manageReviews.php'> 
-                            <input type='hidden' value='$reviewId' name='reviewId'>
-                            <input type='submit' value='Edit' name='edit'>
-                        </form>
-                    </td>
+                echo "<table> 
+                        <thead> 
+                            <tr> 
+                                <td> Subject </td>  
+                                <td> Description </td> 
+                                <td> Rating </td> 
+                                <td> Date Published </td>   
+                                <td> Edit Review </td> 
+                                <td> Delete Review </td> 
+                            </tr>
+                        </thead>
+                        <tbody>";
 
-                    <td>
-                        <form method='POST' action='manageReviews.php'> 
-                            <input type='hidden' name='reviewId' value='$reviewId'>
-                            <input type='submit' value='Delete' name='delete'>
-                        </form>
-                    </td>
-                </tr>
-            ";
+                foreach ($reviewData as $key=> $row) {
+                    $reviewId = $row['reviewId'];
+                    $subject = $row['subject'];
+                    $description = $row['description'];
+                    $rating = $row['rating'];
+                    $reviewDate = $row['reviewDate'];
+
+                echo "
+                    <tr> 
+                        <td> $subject </td>
+                        <td> $description </td>
+                        <td> $rating </td>
+                        <td> $reviewDate </td>
+                        <td>
+                            <form method='POST' action='manageReviews.php'> 
+                                <input type='hidden' value='$reviewId' name='reviewId'>
+                                <input type='submit' value='Edit' name='edit'>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form method='POST' action='manageReviews.php'> 
+                                <input type='hidden' name='reviewId' value='$reviewId'>
+                                <input type='submit' value='Delete' name='delete'>
+                            </form>
+                        </td>
+                    </tr>
+                ";
+                }
+            } else {
+                echo "<p> You Have Left no Reviews </p>";
             }
         ?>
         </tbody>
