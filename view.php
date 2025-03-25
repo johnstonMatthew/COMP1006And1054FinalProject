@@ -139,7 +139,6 @@
                     $query->execute();
 
                     echo "<p> Review Submitted </p>";
-                    $connection = null;
                 }
                 $connection = null;
             }

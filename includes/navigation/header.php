@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <!-- Meta Data -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="description" content="<?php echo $description; ?>">
-    <title> <?php echo $title; ?></title>
-    
-    <!-- CSS -->
-    <link href="css/reset.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet" >
+    <!-- Meta Data -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="description" content="<?php echo $description; ?>">
+        <title> <?php echo $title; ?></title>
+        
+        <!-- CSS -->
+        <link href="css/reset.css" rel="stylesheet">
+        <link href="css/styles.css" rel="stylesheet" >
 
-    <!-- Fonts --> 
+        <!-- Fonts --> 
     </head>
     <body>
         <header>
@@ -28,6 +28,7 @@
                     <li><a href="login.php"> Login </a></li>
                     <li><a href="register.php"> Register </a></li>
                     <li><a href="profileManagement.php"> Manage Profiles </a></li>
+                    <li><a href="manageReviews.php"> Manage Reviews </a></li>
                 </menu> 
             </nav>
             <div>

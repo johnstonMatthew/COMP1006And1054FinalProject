@@ -1,9 +1,7 @@
 -------- To Do PHP --------
-- Implement Profile Deleting
-- When a Game Name is Clicked in the View all Games Page it Will Take you to view.php With That Game Selected (Might Not do, Might be out of Scope)
+- When a Game Name is Clicked in the View all Games Page it Will Take you to view.php With That Game Selected 
 ^^^^ Actually Might Be Able to Do This With a Hidden Input Element Storing the GameId
-- Allow the User to Edit and Delete Their Reviews
-^^^^ Actually Might Be Able to Do This With a Hidden Input Element Storing the reviewId
+- Allow the User to Add an Account Without a Profile Picture
 
 -------- CSS --------
 - Implement Responsive Design (Unfortunately)
@@ -11,9 +9,6 @@
     - Style Tables for Accounts and Games
 
 -------- HTML ---------
-- Implement Forms Allowing the User Delete Account
-- Implement Forms Allowing a User to Edit Their Review
-- Implement Forms Allowing a User to Delete Their Review
 
 -------- Other ---------
 - Create Cover 'art' for Games

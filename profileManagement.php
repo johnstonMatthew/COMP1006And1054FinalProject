@@ -61,6 +61,19 @@
         }
     }
 
+    if (isset($_POST['submitDelete'])) {
+        $confirmValue = $_POST['confirmDelete'];
+        echo "<p> $confirmValue </p>";
+        if ($confirmValue === "confirm") {
+            $query = $connection->prepare("DELETE FROM useraccounts WHERE accountId = '$accountId' ");
+            $query->execute();
+            echo "<p> Account has Been Deleted </p>";
+
+            Header("Location: logout.php");
+            exit;
+        }
+    }
+
     $loggedInUserData = $utilities->returnData("SELECT * FROM useraccounts WHERE accountId = '$accountId'", $connection);
     
 
@@ -158,10 +171,14 @@
             </fieldset> 
         </form>
 
-        <form>
+        <form method="POST" action="profileManagement.php">
             <fieldset> 
                 <h3> Delete Profile </h3>
-
+                    <div> 
+                        <label for="confirmDelete"> Confirm Delete </label>
+                        <input type="checkBox" name="confirmDelete" id="confirmDelete" value="confirm" required>  
+                    </div>
+                    <input type="submit" name="submitDelete">
             </fieldset>
         </form>
     </div>
