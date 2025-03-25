@@ -59,6 +59,24 @@
 }
 
 /* temp styling */
+table {
+    border: 1px black solid;
+    border-collapse: collapse;
+    margin: 15px;
+}
+
+tr {
+    border: 3px solid black;
+}
+
+th {
+    border: 3px solid black;
+}
+
+tr, th {
+    padding: 10px;
+}
+
 table tbody tr th img, .review img {
     border: 5px solid black;
     border-radius: 50%;
