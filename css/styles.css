@@ -8,6 +8,60 @@
 
 /* header styling */
 
+/* Form Styling */
+fieldset {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 400px;
+    border: 3px solid lightgrey;
+}
+
+fieldset div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+
+fieldset div textarea {
+    width: 300px;
+    height: 100px;
+}
+/* ----- IDs ----- */
+/* category styling */
+#categoryContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    height: 50vh;
+    border-top: 50px solid #D1BB91;
+}
+
+#bestSellerContainer {
+    background-image: url("../uploads/sheldonCooper.jpg"); /* replace with actual best seller image */
+}
+
+#newReleaseContainer {
+    background-image: url("../uploads/howard.jpg"); /* replace with actual new release image */
+}
+
+#vrTitlesContainer {
+    background-image: url("../uploads/raj.png"); /* replace with actual vr titles image */
+}
+
+#editAndDeleteContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+#deleteReviewSummary {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ----- Classes ----- */
 /* title styling */
 .title {
     display: flex;
@@ -24,15 +78,6 @@
     font-size: 6em;
 }
 
-/* category styling */
-#categoryContainer {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    text-align: center;
-    height: 50vh;
-    border-top: 50px solid #D1BB91;
-}
-
 .splitThree {
     display: flex;
     align-items: center;
@@ -46,29 +91,67 @@
     background-color: rgba(189, 183, 107, 0.5);
 }
 
-#bestSellerContainer {
-    background-image: url("../uploads/sheldonCooper.jpg"); /* replace with actual best seller image */
-}
-
-#newReleaseContainer {
-    background-image: url("../uploads/howard.jpg"); /* replace with actual new release image */
-}
-
-#vrTitlesContainer {
-    background-image: url("../images/placeholder.png"); /* replace with actual vr titles image */
-}
-
 .coverImageContainer {
     width: 100%;
-    height: 300px;
+    height: 420px;
     margin-bottom: 0;
 }
 
 .gameCoverImage {
-    width: 200px;
+    width: 300px;
     height: auto;
 }
-/* temp styling */
+
+.profilePicture {
+    border: 5px solid black;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;  
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.review {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 800px;
+    border: 5px solid black;
+    border-radius: 50px;
+    padding: 5px;
+    margin: 25px;
+}
+
+.review img {
+    margin-right: 10px;
+}
+
+.reviewContentContainer {
+
+}
+
+.subjectAndRatingContainer {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+}
+
+.subjectAndRatingContainer h4 {
+    margin-right: 20px;
+}
+
+.description {
+    width: 600px;
+    height: auto;
+    margin-top: 5px;
+    margin-bottom: 5px; 
+}
+
+/* ----- Table Styling ----- */
 table {
     border: 1px black solid;
     border-collapse: collapse;
@@ -79,17 +162,14 @@ tr {
     border: 3px solid black;
 }
 
-th {
+td {
     border: 3px solid black;
 }
 
-tr, th {
+tr, td {
     padding: 10px;
 }
 
-table tbody tr th img, .review img {
-    border: 5px solid black;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
+td {
+    text-align: center;
 }

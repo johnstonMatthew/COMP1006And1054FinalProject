@@ -20,7 +20,6 @@
         $password = $_POST['password'];
         $confirmPass = $_POST['confirmPass'];
         $profilePicture = $_FILES['file']['name'];
-        echo "<p> $profilePicture </p>";
 
         if ($profilePicture == null || $profilePicture == "") {
             $profilePicture = "placeholder.png";
@@ -113,12 +112,12 @@
 
             <div>
                 <label for="password"> Password </label>
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" required>
             </div>
 
             <div> 
                 <label for="confirmPass"> Confirm Password </label>
-                <input type="password" name="confirmPass" id="confirmPass"> 
+                <input type="password" name="confirmPass" id="confirmPass" required> 
             </div>
 
             <div>

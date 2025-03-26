@@ -118,5 +118,11 @@
             }
             return false;
         }
+
+        public function sanitizeString ($text) {
+            $text = str_replace("'", "’", $text);
+
+            return $text;
+        }
     }
 ?>

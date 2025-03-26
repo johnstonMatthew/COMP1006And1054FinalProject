@@ -97,32 +97,34 @@
             }
 
             echo"<form method='POST' action='manageReviews.php'>
-                    <input type='hidden' name='reviewId' value='$reviewId'> 
-                    <div> 
-                        <label for='subject'> </label>
-                        <input type='text' name='subject' value='$subject'>
-                    </div>
+                    <fieldset>
+                        <h3> Edit Review </h3>
+                        <input type='hidden' name='reviewId' value='$reviewId'> 
+                        <div> 
+                            <label for='subject'> </label>
+                            <input type='text' name='subject' value='$subject'>
+                        </div>
 
-                    <div> 
-                        <label for='description'> </label>
-                        <textarea name='description'>" . $description . "</textarea>
-                    </div>
+                        <div> 
+                            <label for='description'> </label>
+                            <textarea name='description'>" . $description . "</textarea>
+                        </div>
 
-                    <div> 
-                        <label for='rating'> </label>
-                        <input type='number' name='rating' value='$rating' min='1' max='5'>
-                    </div>
+                        <div> 
+                            <label for='rating'> </label>
+                            <input type='number' name='rating' value='$rating' min='1' max='5'>
+                        </div>
 
-                    <div> 
-                        <label for='reviewDate'> </label>
-                        <input type='date' name='reviewDate' value='$reviewDate'>
-                    </div>
+                        <div> 
+                            <label for='reviewDate'> </label>
+                            <input type='date' name='reviewDate' value='$reviewDate'>
+                        </div>
 
-                    <div class='buttonContainer'>
-                        <button type='submit' name='submitEdit' id='submitEdit'> Edit Review </button>
-                        <button type='reset'> Reset </button>
-                    </div>
-            
+                        <div class='buttonContainer'>
+                            <button type='submit' name='submitEdit' id='submitEdit'> Edit Review </button>
+                            <button type='reset'> Reset </button>
+                        </div>
+                    </fieldset>
                  </form>";
         }
 
@@ -132,6 +134,9 @@
             $description = $_POST['description'];
             $rating = $_POST['rating'];
             $reviewDate = $_POST['reviewDate'];
+
+            $subject = $validate->sanitizeString($_POST['subject']);
+            $description = $validate->sanitizeString($_POST['description']);
  
             $emptyMessage = $validate->checkEmpty($_POST, array("subject", "description", "rating"));
             $validRating = $validate->validRating($rating);
@@ -163,30 +168,24 @@
                 $reviewDate = $row['reviewDate'];
             }
             echo "<h3> You Would Like to Delete This Review? </h3>";
-            echo "<table> 
-                    <thead>
-                        <tr>  <th> Your Review </th> </tr>
-                    </thead>
-                    <tbody> 
-                        <tr> $subject </tr>
-                        <tr> $description </tr>
-                        <tr> $rating </tr>
-                        <tr> $reviewDate </tr>
-                        <tr>
-                            <form method='POST' action='manageReviews.php'>
-                                <fieldset> 
-                                    <h3> Delete Profile </h3>
-                                        <div> 
-                                            <input type='hidden' name='reviewId' value='$reviewId'>
-                                            <label for='confirmDelete'> Confirm Delete </label>
-                                            <input type='checkBox' name='confirmDelete' id='confirmDelete' value='confirm' required>  
-                                        </div>
-                                        <input type='submit' name='submitDelete'>
-                                </fieldset>
-                            </form>
-                        </tr>
-                    </tbody>
-              </table>";
+            echo "<h3> Your Review </h3>
+                  <div id='deleteReviewSummary'> 
+                      <p> $subject </p>
+                      <p> $description </p>
+                      <p> $rating </p>
+                      <p> $reviewDate </p>
+                  </div>
+                      <form method='POST' action='manageReviews.php'>
+                          <fieldset> 
+                              <h3> Delete Profile </h3>
+                              <div> 
+                                  <input type='hidden' name='reviewId' value='$reviewId'>
+                                  <label for='confirmDelete'> Confirm Delete </label>
+                                  <input type='checkBox' name='confirmDelete' id='confirmDelete' value='confirm' required>  
+                              </div>
+                            <input type='submit' name='submitDelete'>
+                        </fieldset>
+                      </form>";
         }
 
         if (isset($_POST['submitDelete'])) {

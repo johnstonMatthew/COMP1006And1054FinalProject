@@ -1,4 +1,3 @@
-<!-- Possibly Will be Split Into Four Pages Since the Initial Plan is to use a Database to Store Video Games. But if it is too complicated will just use four separate pages for the games -->
 <?php 
     $title = "View Games";
     $description = "This is the page where you can view all the games on smoke";
@@ -8,12 +7,14 @@
 
     $validate = new Validate();
 
-    if (isset($_POST['searchSubmit']) || isset($_SESSION['search']) || isset($_POST['viewGame'])) {
+    if (isset($_POST['searchSubmit']) || isset($_SESSION['search']) || isset($_POST['viewGame']) || isset($_POST['reviewSubmit'])) {
 
         if (isset($_POST['searchSubmit'])) {
             $search = $_POST['searchGameName'];
             $_SESSION['search'] = $_POST['searchGameName'];
         } else if (isset($_POST['viewGame'])) {
+            $search = $_POST['gameName'];
+        } else if (isset($_POST['reviewSubmit'])) {
             $search = $_POST['gameName'];
         } else if (isset($_SESSION['search'])){
             $search = $_SESSION['search'];
@@ -40,15 +41,44 @@
         }
 
     }
+
+    if (isset($_POST['reviewSubmit']) and isset($_SESSION['accountId'])) {
+        $subject = $_POST['subject'];
+        $description = $_POST['description'];
+        $ratingValue = $_POST['rating'];
+        $reviewDate = date("Y-m-d");
+        $accountId = $_SESSION['accountId'];
+        $gameId = $_SESSION['gameId'];
+
+        echo "$gameName";
+
+        $subject = $validate->sanitizeString($_POST['subject']); 
+        $description = $validate->sanitizeString($_POST['description']);
+
+        $emptyMessage = $validate->checkEmpty($_POST, array("subject", "description", "rating"));
+        $validRating = $validate->validRating($ratingValue);
+
+        if ($emptyMessage != null) {
+            echo "<p>$emptyMessage</p>";
+        } else if ($validRating == false) {
+            echo "<p> Rating Must be Between 1 and 5 </p>";
+        } else {
+            $query = $connection->prepare("INSERT INTO reviews (gameId, accountId, subject, description, rating, reviewDate) VALUES ('$gameId', '$accountId', '$subject', '$description', '$ratingValue', '$reviewDate')");
+
+            $query->execute();
+
+            echo "<p> Review Submitted </p>";
+        }
+    }
 ?>
 
 <main> 
     <?php 
         if ($search != "") {
-            echo "<div class='coverImageContainer'>";
-                echo '<img class="gameCoverImage" src="' . $coverImage . '" alt="image">'; 
-                echo "<h2> $gameName </h2>
-                 </div>";
+            echo "<figure class='coverImageContainer'>";
+                echo '<img class="gameCoverImage" src="' . $coverImage . '" alt=" '. $gameName .' Cover Art">'; 
+                echo "<figcaption> $gameName </figcaption>
+                 </figure>";
 
             echo "<div>"; 
                 echo "<div id='gameInfoContainer'>";
@@ -83,22 +113,28 @@
                     $reviewDate = $row['reviewDate'];
 
                     echo '<div class="review">';
-                        echo '<img src="' . $profilePicture . '" alt="image">';
-                        echo "<p> $accountName </p>";
-                        echo "<h4> $subject </h4>";
-                        echo "<p> $rating </p>";
-                        echo "<h4> $description </h4>";
-                        echo "<h4> $reviewDate </h4>";
+                        echo '<img class="profilePicture" src="' . $profilePicture . '" alt="image">';
+                        echo "<div class='reviewContentContainer'>";
+                            echo "<p> $accountName </p>";
+                            echo "<div class='subjectAndRatingContainer'>";
+                            echo "<h4> $subject </h4>";
+                            echo "<p> $rating / 5</p>";
+                            echo "</div>";
+                            echo "<p class='description'> $description </p>";
+                            echo "<h4> $reviewDate </h4>";
+                        echo "</div>";
                     echo "</div>";
                 }
                 
             }
+            $connection = null;
         ?>
     
     <div>
 
-    <form method="POST"> 
+    <form method="POST" action="view.php"> 
         <fieldset> 
+            <input type="hidden" name='gameName' value="<?php echo "$gameName"?>"> 
             <div> 
                 <label for="subject"> Subject </label>
                 <input type="text" name="subject" id="subject" required>
@@ -119,33 +155,6 @@
                 <button type="reset"> Reset </button>
             </div>
         </fieldset>
-
-        <?php 
-            if (isset($_POST['reviewSubmit']) and isset($_SESSION['accountId'])) {
-                $subject = $_POST['subject'];
-                $description = $_POST['description'];
-                $ratingValue = $_POST['rating'];
-                $reviewDate = date("Y-m-d");
-                $accountId = $_SESSION['accountId'];
-                $gameId = $_SESSION['gameId'];
-
-                $emptyMessage = $validate->checkEmpty($_POST, array("subject", "description", "rating"));
-                $validRating = $validate->validRating($ratingValue);
-
-                if ($emptyMessage != null) {
-                    echo "<p>$emptyMessage</p>";
-                } else if ($validRating == false) {
-                    echo "<p> Rating Must be Between 1 and 5 </p>";
-                } else {
-                    $query = $connection->prepare("INSERT INTO reviews (gameId, accountId, subject, description, rating, reviewDate) VALUES ('$gameId', '$accountId', '$subject', '$description', '$ratingValue', '$reviewDate')");
-
-                    $query->execute();
-
-                    echo "<p> Review Submitted </p>";
-                }
-                $connection = null;
-            }
-        ?>
     </form>
 </main>
 

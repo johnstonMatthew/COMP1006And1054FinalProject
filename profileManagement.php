@@ -95,13 +95,13 @@
     <table> 
         <thead> 
             <tr> 
-                <th> Account ID </th>
-                <th> Profile Picture </th>
-                <th> Account Name </th>
-                <th> Date of Birth </th>
-                <th> Email </th>
-                <th> First Name </th>
-                <th> Last Name </th>
+                <td> Account ID </td>
+                <td> Profile Picture </td>
+                <td> Account Name </td>
+                <td> Date of Birth </td>
+                <td> Email </td>
+                <td> First Name </td>
+                <td> Last Name </td>
             </tr>
         </thead>
 
@@ -118,13 +118,13 @@
                     $profilePicture = $row['profilePicture'];
 
                     echo "<tr>";
-                    echo "<th> $accountId </th>";
-                    echo '<th> <img src="' . $profilePicture . '" alt="image"> </th>';
-                    echo "<th> $accountName </th>";
-                    echo "<th> $dateOfBirth </th>";
-                    echo "<th> $email </th>";
-                    echo "<th> $fName </th>";
-                    echo "<th> $lName </th>";
+                    echo "<td> $accountId </td>";
+                    echo '<td> <img class="profilePicture" src="' . $profilePicture . '" alt="image"> </td>';
+                    echo "<td> $accountName </td>";
+                    echo "<td> $dateOfBirth </td>";
+                    echo "<td> $email </td>";
+                    echo "<td> $fName </td>";
+                    echo "<td> $lName </td>";
                     echo "</tr>";
                 }
                 $connection = null
@@ -136,41 +136,40 @@
         <form method="POST" enctype="multipart/form-data">
             <fieldset> 
                 <h3> Edit Profile </h3>
+                <div>
+                    <label for="uAccountName"> Account Name </label>
+                    <input type="text" name="uAccountName" id="uAccountName" value="<?php echo"$currentUsername";?>">
+                </div>
 
                 <div>
-                <label for="uAccountName"> Account Name </label>
-                <input type="text" name="uAccountName" id="uAccountName" value="<?php echo "$currentUsername"; ?>">
-            </div>
+                    <label for="uDateOfBirth"> Date of Birth </label>
+                    <input type="date" name="uDateOfBirth" id="uDateOfBirth" value="<?php echo "$currentDateOfBirth"; ?>">
+                </div>
 
-            <div>
-                <label for="uDateOfBirth"> Date of Birth </label>
-                <input type="date" name="uDateOfBirth" id="uDateOfBirth" value="<?php echo "$currentDateOfBirth"; ?>">
-            </div>
+                <div> 
+                    <label for="uEmail"> Email </label>
+                    <input type="email" name="uEmail" id="uEmail" value="<?php echo "$currentEmail"; ?>"> 
+                </div>
 
-            <div> 
-                <label for="uEmail"> Email </label>
-                <input type="email" name="uEmail" id="uEmail" value="<?php echo "$currentEmail"; ?>"> 
-            </div>
+                <div>
+                    <label for="ufName"> First Name </label>
+                    <input type="text" name="ufName" id="ufName" value="<?php echo "$currentfName"; ?>">
+                </div>
 
-            <div>
-                <label for="ufName"> First Name </label>
-                <input type="text" name="ufName" id="ufName" value="<?php echo "$currentfName"; ?>">
-            </div>
+                <div>
+                    <label for="ulName"> Last Name </label>
+                    <input type="text" name="ulName" id="ulName" value="<?php echo "$currentlName"; ?>">
+                </div>
 
-            <div>
-                <label for="ulName"> Last Name </label>
-                <input type="text" name="ulName" id="ulName" value="<?php echo "$currentlName"; ?>">
-            </div>
+                <div>
+                    <label for="file"> Add Profile Picture </label>
+                    <input type="file" name="file">
+                </div>
 
-            <div>
-                <label for="file"> Add Profile Picture </label>
-                <input type="file" name="file">
-            </div>
-
-            <div class="buttonContainer">
-                <button type="submit" name="updateSubmit" id="updateSubmit"> Update </button>
-                <button type="reset"> Reset </button>
-            </div>
+                <div class="buttonContainer">
+                    <button type="submit" name="updateSubmit" id="updateSubmit"> Update </button>
+                    <button type="reset"> Reset </button>
+                </div>
             </fieldset> 
         </form>
 

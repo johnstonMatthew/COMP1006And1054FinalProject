@@ -13,11 +13,11 @@
         echo "<table>";
         echo "<thead> 
                 <tr> 
-                    <th> Cover Image </th>
-                    <th> Game Name</th>
-                    <th> Genre </th>
-                    <th> Publish Date </th>
-                    <th> Publisher </th>
+                    <td> Cover Image </td>
+                    <td> Game Name</td>
+                    <td> Genre </td>
+                    <td> Publish Date </td>
+                    <td> Publisher </td>
                 </tr>
               </thead>
               <tbody>";
