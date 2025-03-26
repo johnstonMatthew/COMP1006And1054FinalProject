@@ -7,6 +7,160 @@
 
 
 /* header styling */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 20vh;
+    width: 100%;
+}
+
+nav {
+    margin-left: auto;
+}
+
+nav menu {
+    list-style: none;
+    display: flex;
+    margin-right: 20px;
+}
+
+nav menu li {
+    padding: 0 5px;
+}
+
+header img {
+    width: 10%;
+    height: 80%;
+    margin-left: 20px;
+}
+
+header form input:first-child {
+    margin-left: 20px;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 250px 0;
+}
+
+/* title styling */
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url("../images/placeholder.png");
+    background-size: cover;
+    background-position: center;
+    /* background-attachment: fixed;*/ /* (once page is more finished see how this looks) */
+}
+
+.title h1 {
+    font-size: 6em;
+}
+
+/* category styling */
+#categoryContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    height: 50vh;
+    border-top: 50px solid #228B22;
+}
+
+.splitThree {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    font-size: 2.5em;
+}
+
+.splitThree h2 {
+    background-color: rgba(189, 183, 107, 0.5);
+}
+
+#bestSellerContainer {
+    background-image: url("../uploads/sheldonCooper.jpg"); /* replace with actual best seller image */
+}
+
+#newReleaseContainer {
+    background-image: url("../uploads/howard.jpg"); /* replace with actual new release image */
+}
+
+#vrTitlesContainer {
+    background-image: url("../uploads/raj.png"); /* replace with actual vr titles image */
+}
+
+#categoryContainer2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    border-top: 50px solid #228B22;
+    overflow: scroll;
+}
+
+#specialContainer h2 {
+    font-size: 2.5em;
+    margin-bottom: 200px;
+    border-bottom: 3px solid black;
+    text-align: center;
+}
+
+#logoutForm {
+    padding-top: 20px;
+}
+
+/* footer */
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25vh;
+    border-top: 50px solid #228B22;
+    background-color: #BDB76B;
+}
+
+footer nav {
+    width: 100%;
+}
+
+footer nav menu {
+    display: flex;
+    justify-content: center;
+}
+
+footer nav menu li a:first-child {
+    margin-right: 100px;
+}
+
+footer nav menu li a:last-child {
+    margin-left: 100px;
+}
+
+footer nav menu li a {
+    border: 2px solid black;
+    padding: 10px 30px;
+    text-decoration: none;
+    background-color: white;
+}
+
+/*  
+    dark green: #228B22
+    beige: #D1BB91
+    dark khaki: #BDB76B 
+*/
+/* overall page styling */
+
+
+/* header styling */
 
 /* Form Styling */
 fieldset {
@@ -31,25 +185,7 @@ fieldset div textarea {
 }
 /* ----- IDs ----- */
 /* category styling */
-#categoryContainer {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    text-align: center;
-    height: 50vh;
-    border-top: 50px solid #D1BB91;
-}
 
-#bestSellerContainer {
-    background-image: url("../uploads/sheldonCooper.jpg"); /* replace with actual best seller image */
-}
-
-#newReleaseContainer {
-    background-image: url("../uploads/howard.jpg"); /* replace with actual new release image */
-}
-
-#vrTitlesContainer {
-    background-image: url("../uploads/raj.png"); /* replace with actual vr titles image */
-}
 
 #editAndDeleteContainer {
     display: flex;
@@ -62,35 +198,6 @@ fieldset div textarea {
 }
 
 /* ----- Classes ----- */
-/* title styling */
-.title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-image: url("../images/placeholder.png");
-    background-size: cover;
-    background-position: center;
-    /* background-attachment: fixed;*/ /* (once page is more finished see how this looks) */
-}
-
-.title h1 {
-    font-size: 6em;
-}
-
-.splitThree {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
-    background-position: center;
-    font-size: 2.5em;
-}
-
-.splitThree h2 {
-    background-color: rgba(189, 183, 107, 0.5);
-}
-
 .coverImageContainer {
     width: 100%;
     height: 420px;

@@ -31,15 +31,15 @@
                     <li><a href="manageReviews.php"> Manage Reviews </a></li>
                 </menu> 
             </nav>
-            <div>
+            <div id="logoutContainer">
                 <?php 
                     session_start(); 
                     if (isset($_SESSION['accountName'])) {
                         $username = $_SESSION['accountName']; 
-                        echo "<p> $username </p>"; 
+                        echo "<p id='username'> $username </p>"; 
                     }
                 ?> 
-                <form method="POST" action="logout.php"> 
+                <form method="POST" action="logout.php" id="logoutForm"> 
                     <button type="submit"> Log Out </button>
                 </form>
             </div>

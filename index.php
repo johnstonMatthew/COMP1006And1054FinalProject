@@ -58,7 +58,7 @@
             <a> <h2> VR Titles </h2> </a>
         </section>
     </div>
-    <div>
+    <div id="categoryContainer2">
         <section id="specialContainer">
             <a> <h2> Specials </h2> </a>
         </section>
