@@ -91,7 +91,7 @@
 
 ?>
 
-<main> 
+<main id="notIndexMain"> 
     <table> 
         <thead> 
             <tr> 
@@ -135,7 +135,7 @@
     <div id="editAndDeleteContainer"> 
         <form method="POST" enctype="multipart/form-data">
             <fieldset> 
-                <h3> Edit Profile </h3>
+                <legend> Edit Profile </legend>
                 <div>
                     <label for="uAccountName"> Account Name </label>
                     <input type="text" name="uAccountName" id="uAccountName" value="<?php echo"$currentUsername";?>">
@@ -175,12 +175,12 @@
 
         <form method="POST" action="profileManagement.php">
             <fieldset> 
-                <h3> Delete Profile </h3>
-                    <div> 
-                        <label for="confirmDelete"> Confirm Delete </label>
-                        <input type="checkBox" name="confirmDelete" id="confirmDelete" value="confirm" required>  
-                    </div>
-                    <input type="submit" name="submitDelete">
+                <legend> Delete Profile </legend>
+                <div> 
+                    <label for="confirmDelete"> Confirm Delete </label>
+                    <input type="checkBox" name="confirmDelete" id="confirmDelete" value="confirm" required>  
+                </div>
+                <input type="submit" name="submitDelete">
             </fieldset>
         </form>
     </div>

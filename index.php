@@ -41,26 +41,35 @@
 ?>
 <!-- Title -->
 <div class="title">
-    <h1> Placeholder </h1>
+    <h1> Smoke </h1>
 </div>
 <!-- Page Main -->
 <main>
     <div id="categoryContainer">
         <section id="bestSellerContainer" class="splitThree">
-            <a> <h2> Best Sellers </h2> </a>
-        </section>
-
-        <section id="newReleaseContainer" class="splitThree">
-            <a> <h2> New Releases </h2> </a>
+            <form method="POST" action="view.php">
+                <input type="hidden" name="bestSellerId" value="1">
+                <input type="submit" name="bestSubmit" value="Best Sellers" id="bestSellerButton">
+            </form>
         </section>
 
         <section id="vrTitlesContainer" class="splitThree">
-            <a> <h2> VR Titles </h2> </a>
+            <form method="POST" action="view.php">  
+                <input type="hidden" name="VRTitleId" value="2">
+                <input type="submit" name="vrSubmit" value="VR Titles" id="VRTitleButton">
+            </form>
+        </section>
+
+        <section id="newReleaseContainer" class="splitThree">
+            <form method="POST" action="view.php">  
+                <input type="hidden" name="newReleaseId" value="3">
+                <input type="submit" name="newSubmit" value="New Releases" id="newReleaseButton">
+            </form>  
         </section>
     </div>
     <div id="categoryContainer2">
         <section id="specialContainer">
-            <a> <h2> Specials </h2> </a>
+    
         </section>
     </div>
 

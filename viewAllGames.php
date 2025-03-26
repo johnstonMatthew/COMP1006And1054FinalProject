@@ -5,12 +5,12 @@
     require_once('includes/php/database.php');
 ?>
 
-<main>
+<main id="notIndexMain">
     <?php
         $gameTable = $connection->prepare("SELECT * FROM games");
         $gameTable->execute();
         $gameData = $gameTable->fetchAll();
-        echo "<table>";
+        echo "<table id='allGameTable'>";
         echo "<thead> 
                 <tr> 
                     <td> Cover Image </td>
@@ -32,9 +32,10 @@
             $publisher = $row['publisher'];
             $coverImage = $row['coverImage'];
             echo "<tr>";
-                echo '<td> <div class="coverImageContainer"> 
-                                <img class="gameCoverImage" src="' . $coverImage . '" alt="image"> 
-                            </div> 
+                echo '<td> 
+                        <div class="coverImageContainer"> 
+                            <img class="gameCoverImage" src="' . $coverImage . '" alt="image"> 
+                        </div> 
                       </td>'; 
                 echo "<td> $gameName </td>";
                 echo "<td> $genre </td>"; 

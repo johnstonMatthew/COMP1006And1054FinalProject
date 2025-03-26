@@ -4,7 +4,7 @@
     require('includes/navigation/header.php');
 ?>
 
-<main>
+<main id="notIndexMain">
     <section>
         <h2> Privacy Policy </h2>
 

@@ -26,14 +26,11 @@
     $rowCount = $result->rowCount();
 ?>
 
-<main>
-    
-    
-    
+<main id="notIndexMain">
         <?php
             if ($rowCount > 0) {
 
-                echo "<table> 
+                echo "<table id='allReviewTable'> 
                         <thead> 
                             <tr> 
                                 <td> Subject </td>  
@@ -98,7 +95,7 @@
 
             echo"<form method='POST' action='manageReviews.php'>
                     <fieldset>
-                        <h3> Edit Review </h3>
+                        <legend> Edit Review </legend>
                         <input type='hidden' name='reviewId' value='$reviewId'> 
                         <div> 
                             <label for='subject'> </label>
@@ -177,7 +174,7 @@
                   </div>
                       <form method='POST' action='manageReviews.php'>
                           <fieldset> 
-                              <h3> Delete Profile </h3>
+                              <legend> Delete Profile </legend>
                               <div> 
                                   <input type='hidden' name='reviewId' value='$reviewId'>
                                   <label for='confirmDelete'> Confirm Delete </label>

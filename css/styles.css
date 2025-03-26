@@ -1,10 +1,13 @@
 /*  
     dark green: #228B22
     beige: #D1BB91
-    dark khaki: #BDB76B 
+    dark khaki: #BDB76B
+    smoke: #738276
 */
 /* overall page styling */
-
+html {
+    background-color: #738276;
+}
 
 /* header styling */
 header {
@@ -13,7 +16,7 @@ header {
     justify-content: center;
     position: absolute;
     height: 20vh;
-    width: 100%;
+    width: 95%;
 }
 
 nav {
@@ -27,7 +30,24 @@ nav menu {
 }
 
 nav menu li {
-    padding: 0 5px;
+    padding: 0 10px;
+}
+
+nav menu li a {
+    text-decoration: none;
+    color: white;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+    transition: border-bottom 0.3s linear;
+    padding: 5px 10px;
+}
+
+nav menu li a:hover {
+    border-bottom: 3px solid black;
+}
+
+nav menu li a:active {
+    background-color: black;
 }
 
 header img {
@@ -38,14 +58,6 @@ header img {
 
 header form input:first-child {
     margin-left: 20px;
-}
-
-main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 250px 0;
 }
 
 /* title styling */
@@ -60,11 +72,8 @@ main {
     /* background-attachment: fixed;*/ /* (once page is more finished see how this looks) */
 }
 
-.title h1 {
-    font-size: 6em;
-}
-
 /* category styling */
+/* ----- Index Page Specific Styling ----- */
 #categoryContainer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -82,20 +91,34 @@ main {
     font-size: 2.5em;
 }
 
-.splitThree h2 {
-    background-color: rgba(189, 183, 107, 0.5);
+#bestSellerButton, #newReleaseButton, #VRTitleButton {
+    border: none;
+    background: rgba(189, 183, 107, 0.5);
+    font-size: 1.5em;
+    border: 3px solid black;
+    cursor: pointer;
 }
 
 #bestSellerContainer {
     background-image: url("../uploads/sheldonCooper.jpg"); /* replace with actual best seller image */
+    background-size: 100%;
+    transition: all 0.3s ease-in-out;
 }
 
 #newReleaseContainer {
     background-image: url("../uploads/howard.jpg"); /* replace with actual new release image */
+    background-size: 100%;
+    transition: all 0.3s ease-in-out;
 }
 
 #vrTitlesContainer {
     background-image: url("../uploads/raj.png"); /* replace with actual vr titles image */
+    background-size: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+#bestSellerContainer:hover, #newReleaseContainer:hover, #vrTitlesContainer:hover  {
+    background-size: 120%;
 }
 
 #categoryContainer2 {
@@ -118,7 +141,108 @@ main {
     padding-top: 20px;
 }
 
-/* footer */
+/* ----- about page styling ----- */
+#aboutPageHistory {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #BDB76B;
+    height: 30vh;
+    width: 50%;
+    border: 5px solid black;
+}
+
+#aboutPageHistory h2 {
+    padding-bottom: 20px;
+    font-size: 3em;
+    color: black
+}
+
+#aboutPageHistory p {
+    color: black;
+}
+
+#aboutForm {
+    margin-top: 150px;
+}
+
+#notIndexMain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 250px 0;
+}
+
+.gameInfoContainer {
+    margin-top: 50px;
+}
+
+.coverImageContainer, .gameInfoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+} 
+
+.descriptionContainer {
+    width: 50%;
+    margin-bottom: 50px;
+}
+
+figure .gameCoverImage {
+    box-shadow: 3px 3px 3px black;
+}
+
+/* ----- Text Styling ----- */
+h1 {
+    font-family: Audiowide;
+    font-size: 6em;
+}
+
+h2 {
+    margin: 25px 0;
+}
+
+h2, h3 {
+    font-size: 3em;
+}
+
+h3 {
+    margin: 15px 0;
+}
+
+h4 {
+    font-size: 1.2em;
+}
+
+legend {
+    font-size: 1.3em;
+}
+
+h2, h3, h4, th, legend, figcaption {
+    font-family: Limelight;
+    text-align: center;
+    color: white;
+}
+
+p, li, td, label, input, button{
+    font-family: Anta;
+    text-align: center;
+    color: white;
+}
+
+figcaption {
+    font-size: 2em;
+    margin-top: 10px;
+}
+
+ul li {
+    text-align: center;
+}
+
+/* ----- footer styling ----- */
 footer {
     display: flex;
     align-items: center;
@@ -145,22 +269,20 @@ footer nav menu li a:last-child {
     margin-left: 100px;
 }
 
-footer nav menu li a {
+footer nav menu li a, input[type="submit"], input[type="reset"], button[type="submit"], button[type="reset"]  {
     border: 2px solid black;
     padding: 10px 30px;
     text-decoration: none;
     background-color: white;
+    color: black;
+    transition: all 0.3s ease-in-out;
 }
 
-/*  
-    dark green: #228B22
-    beige: #D1BB91
-    dark khaki: #BDB76B 
-*/
-/* overall page styling */
-
-
-/* header styling */
+footer nav menu li a:hover {
+    background-color: #738276;
+    border-radius: 50px;
+    color: #BDB76B;
+}
 
 /* Form Styling */
 fieldset {
@@ -170,6 +292,7 @@ fieldset {
     flex-direction: column;
     width: 400px;
     border: 3px solid lightgrey;
+    border-radius: 50px;
 }
 
 fieldset div {
@@ -183,17 +306,54 @@ fieldset div textarea {
     width: 300px;
     height: 100px;
 }
-/* ----- IDs ----- */
-/* category styling */
 
+input {
+    transition: all 0.3s ease-in-out;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px black;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover, button[type="submit"]:hover, button[type="reset"]:hover {
+    background-color: #738276;
+    border-radius: 50px;
+    color: white;
+    transition: all 0.3s ease-in-out;    
+}
+
+fieldset input, fieldset button, form input, form button {
+    color: black
+}
+/* ----- IDs ----- */
+#reviewContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
 
 #editAndDeleteContainer {
     display: flex;
     flex-direction: row;
 }
 
+#editAndDeleteContainer fieldset {
+    height: 350px;
+    margin: 25px;
+}
+
 #deleteReviewSummary {
     display: flex;
+    flex-direction: column;
+}
+
+#logoutContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
 }
 
@@ -214,11 +374,17 @@ fieldset div textarea {
     border-radius: 50%;
     width: 100px;
     height: 100px;  
+    background-color: white;
 }
 
 .buttonContainer {
     display: flex;
     flex-direction: row;
+}
+
+.buttonContainer input, .buttonContainer button {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .review {
@@ -231,14 +397,15 @@ fieldset div textarea {
     border-radius: 50px;
     padding: 5px;
     margin: 25px;
+    background-color: #BDB76B;
+}
+
+.review h4, .review p {
+    color: black;
 }
 
 .review img {
     margin-right: 10px;
-}
-
-.reviewContentContainer {
-
 }
 
 .subjectAndRatingContainer {
@@ -279,4 +446,20 @@ tr, td {
 
 td {
     text-align: center;
+}
+
+table tbody tr td {
+
+}
+
+#allGameTable tbody tr td:nth-child(2), #allReviewTable tbody tr td:nth-child(4) {
+    width: 10%;
+}
+
+#allReviewTable tbody tr td:nth-child(1), #allReviewTable tbody tr td:nth-child(3), #allReviewTable tbody tr td:nth-child(5) , #allReviewTable tbody tr td:nth-child(6)  {
+    width: 5%;
+}
+
+#allReviewTable tbody tr td:nth-child(2) {
+    width: 25%;
 }

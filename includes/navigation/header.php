@@ -10,16 +10,19 @@
         
         <!-- CSS -->
         <link href="css/reset.css" rel="stylesheet">
-        <link href="css/styles.css" rel="stylesheet" >
+        <link href="css/styles.css" rel="stylesheet">
 
         <!-- Fonts --> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anta&family=Audiowide&family=Limelight&display=swap" rel="stylesheet">
     </head>
     <body>
         <header>
             <img src="images/companyLogo.png" alt="Smoke Logo">
             <form method="POST" action="view.php" >
                 <input type="text" name="searchGameName" id="searchGameName" Placeholder="Search for Games Here">
-                <input type="submit" name="searchSubmit">
+                <input type="submit" name="searchSubmit" value='Search'>
             </form>
             <nav>
                 <menu>

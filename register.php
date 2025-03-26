@@ -81,7 +81,7 @@
     }
 ?>
 
-<main>  
+<main id="notIndexMain">  
     <form id="registerForm" method="POST" enctype='multipart/form-data'>
         <fieldset>
             <legend> Register Smoke Account </legend>

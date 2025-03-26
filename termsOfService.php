@@ -4,7 +4,7 @@
     require('includes/navigation/header.php');
 ?>
    
-<main>
+<main id="notIndexMain">
     <section>
         <h2> Term of Service </h2>
         <div>

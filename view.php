@@ -4,11 +4,13 @@
     require('includes/navigation/header.php');
     require_once('includes/php/database.php');
     require_once('includes/php/validate.php');
+    require_once('includes/php/utilities.php');
 
     $validate = new Validate();
+    $utilities = new Utilities();
 
-    if (isset($_POST['searchSubmit']) || isset($_SESSION['search']) || isset($_POST['viewGame']) || isset($_POST['reviewSubmit'])) {
-
+    if (isset($_POST['searchSubmit']) || isset($_SESSION['search']) || isset($_POST['viewGame']) || isset($_POST['reviewSubmit']) || isset($_POST['bestSubmit']) || isset($_POST['vrSubmit']) || isset($_POST['newSubmit'])) {
+        
         if (isset($_POST['searchSubmit'])) {
             $search = $_POST['searchGameName'];
             $_SESSION['search'] = $_POST['searchGameName'];
@@ -16,28 +18,33 @@
             $search = $_POST['gameName'];
         } else if (isset($_POST['reviewSubmit'])) {
             $search = $_POST['gameName'];
+        } else if (isset($_POST['bestSubmit']) || isset($_POST['vrSubmit']) || isset($_POST['newSubmit'])) {
+            $search = "";
+            if (isset($_POST['bestSellerId'])) {
+                $categoryId = $_POST['bestSellerId'];
+
+            } else if (isset($_POST['VRTitleId'])) {
+                $categoryId = $_POST['VRTitleId']; 
+
+            } else if (isset($_POST['newReleaseId'])) {
+                $categoryId = $_POST['newReleaseId'];
+            }
+
         } else if (isset($_SESSION['search'])){
             $search = $_SESSION['search'];
         } 
         
         if ($search != "") {
-            $gameTable = $connection->prepare("SELECT * FROM games WHERE name LIKE '$search%' LIMIT 1");
-            $gameTable->execute();
-            $gameData = $gameTable->fetchAll();
+            $query = "SELECT * FROM games WHERE name LIKE '$search%' LIMIT 1";
+            $gameData = $utilities->returnData($query, $connection);
 
-            foreach ($gameData as $key=> $row ) {
-                $gameId = $row['gameId'];
-                $_SESSION['gameId'] = $row['gameId'];
-                $gameName = $row['name'];
-                $description = $row['description'];
-                $genre = $row['genre'];
-                $publishDate = $row['publishDate'];
-                $publisher = $row['publisher'];
-                $coverImage = $row['coverImage'];
-            }
         } else {
-            Header("Location: viewAllGames.php");
-            exit;
+
+            if (isset($categoryId)) {
+            } else {
+                Header("Location: viewAllGames.php");
+                exit;
+            }
         }
 
     }
@@ -72,68 +79,95 @@
     }
 ?>
 
-<main> 
+<main id="notIndexMain"> 
     <?php 
-        if ($search != "") {
-            echo "<figure class='coverImageContainer'>";
-                echo '<img class="gameCoverImage" src="' . $coverImage . '" alt=" '. $gameName .' Cover Art">'; 
-                echo "<figcaption> $gameName </figcaption>
-                 </figure>";
+        if (isset($categoryId)) {
+            if ($categoryId == 1) {
+                $query = "SELECT * FROM games WHERE gameId % 2 = 0;";
+            } else if ($categoryId == 2) {
+                $query = "SELECT * FROM games WHERE gameId % 2 != 0;";
+            } else {
+                $query = "SELECT * FROM games WHERE publishDate > '2023-01-01';";
+            }
+            $gameData = $utilities->returnData($query, $connection);
+        }
 
-            echo "<div>"; 
-                echo "<div id='gameInfoContainer'>";
-                    echo "<p> $genre </p>"; 
-                    echo "<p> $publishDate </p>"; 
-                    echo "<p> $publisher </p>"; 
+        foreach ($gameData as $key=> $row) {
+            $gameId = $row['gameId'];
+            $_SESSION['gameId'] = $row['gameId'];
+            $gameName = $row['name'];
+            $description = $row['description'];
+            $genre = $row['genre'];
+            $publishDate = $row['publishDate'];
+            $publisher = $row['publisher'];
+            $coverImage = $row['coverImage'];
+
+            echo "<figure class='coverImageContainer'>";
+            echo '<img class="gameCoverImage" src="' . $coverImage . '" alt=" '. $gameName .' Cover Art">'; 
+            echo "<figcaption> $gameName </figcaption>
+            </figure>";
+
+            echo "<div class='gameInfoContainer'>"; 
+                echo "<div>";
+                    echo "<h4> $genre </h4>"; 
+                    echo "<h4> $publishDate </h4>"; 
+                    echo "<h4> $publisher </h4>"; 
                 echo "</div>";
 
-                echo "<div id='descriptionContainer'>"; 
+                echo "<div class='descriptionContainer'>"; 
                     echo "<p> $description </p>";
                 echo "</div>";
-            echo "</div>";
-        }
-    ?>
-    <div id="reviewContainer"> 
-        <?php
-            if ($search != "") {
-                $reviewTable = $connection->prepare("SELECT reviews.gameId, profilePicture, accountName, subject, reviews.description AS reviewDescription, rating, reviewDate 
+            echo "</div>"; 
+            
+            echo " <div id='reviewContainer'>";
+
+            if (isset($categoryId)) {
+                $query = "SELECT reviews.gameId, profilePicture, accountName, subject, reviews.description AS reviewDescription, rating, reviewDate 
                 FROM reviews 
                 INNER JOIN games ON reviews.gameId = games.gameId 
                 INNER JOIN useraccounts ON reviews.accountId = useraccounts.accountId
-                WHERE games.gameId = $gameId");
-                $reviewTable->execute();
-                $reviewData = $reviewTable->fetchAll();
-
-                foreach ($reviewData as $key=> $row ) {
-                    $profilePicture = $row['profilePicture'];
-                    $accountName = $row['accountName'];
-                    $subject = $row['subject'];
-                    $description = $row['reviewDescription'];
-                    $rating = $row['rating'];
-                    $reviewDate = $row['reviewDate'];
-
-                    echo '<div class="review">';
-                        echo '<img class="profilePicture" src="' . $profilePicture . '" alt="image">';
-                        echo "<div class='reviewContentContainer'>";
-                            echo "<p> $accountName </p>";
-                            echo "<div class='subjectAndRatingContainer'>";
-                            echo "<h4> $subject </h4>";
-                            echo "<p> $rating / 5</p>";
-                            echo "</div>";
-                            echo "<p class='description'> $description </p>";
-                            echo "<h4> $reviewDate </h4>";
-                        echo "</div>";
-                    echo "</div>";
-                }
-                
+                WHERE games.gameId = $gameId LIMIT 1";
+            } else {
+                $query = "SELECT reviews.gameId, profilePicture, accountName, subject, reviews.description AS reviewDescription, rating, reviewDate 
+                FROM reviews 
+                INNER JOIN games ON reviews.gameId = games.gameId 
+                INNER JOIN useraccounts ON reviews.accountId = useraccounts.accountId
+                WHERE games.gameId = $gameId";
             }
-            $connection = null;
-        ?>
-    
-    <div>
+            
+            $reviewData = $utilities->returnData($query, $connection);
 
+            foreach ($reviewData as $key=> $row ) {
+                $profilePicture = $row['profilePicture'];
+                $accountName = $row['accountName'];
+                $subject = $row['subject'];
+                $description = $row['reviewDescription'];
+                $rating = $row['rating'];
+                $reviewDate = $row['reviewDate'];
+
+                echo '<div class="review">';
+                    echo '<img class="profilePicture" src="' . $profilePicture . '" alt="image">';
+                    echo "<div class='reviewContentContainer'>";
+                        echo "<p> $accountName </p>";
+                        echo "<div class='subjectAndRatingContainer'>";
+                        echo "<h4> $subject </h4>";
+                        echo "<p> $rating / 5 </p>";
+                        echo "</div>";
+                        echo "<p class='description'> $description </p>";
+                        echo "<p> $reviewDate </p>";
+                    echo "</div>";
+                echo "</div>";
+            }
+
+            echo "</div>";
+        }
+
+        $connection = null;
+    ?>
+    
     <form method="POST" action="view.php"> 
         <fieldset> 
+            <legend>Login to Your Smoke Account</legend>
             <input type="hidden" name='gameName' value="<?php echo "$gameName"?>"> 
             <div> 
                 <label for="subject"> Subject </label>
@@ -142,7 +176,7 @@
 
             <div> 
                 <label for="description"> Description </label>
-                <textarea type="textarea" name="description" id="description" required> </textarea>
+                <textarea name="description" id="description" required> </textarea>
             </div>
 
             <div> 
@@ -160,4 +194,4 @@
 
 <?php 
     require('includes/navigation/footer.php');
- ?>
+?>

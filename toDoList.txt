@@ -4,9 +4,10 @@
 - Implement Responsive Design (Unfortunately)
 - Style all Pages
     - Style Tables for Accounts and Games
+    - Finish Enhancements
+    - 
 
 -------- HTML ---------
 
 -------- Other ---------
-- Still Need Elon Musk Conquers Capitialism Cover Art
-- Create More Reviews to Populate the Review Table
+- Create More Reviews to Populate the Review Table (Optional (Needed for 100% Game Completion) )

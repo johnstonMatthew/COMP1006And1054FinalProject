@@ -29,7 +29,7 @@
         $connection = null;  
     }
 ?>
-<main>
+<main id="notIndexMain"> 
     <!-- login form -->
     <form class="login-form" method="post">
         <fieldset>
