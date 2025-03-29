@@ -4,9 +4,15 @@
     dark khaki: #BDB76B
     smoke: #738276
 */
+
+@keyframes pulseInAndOut {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
 /* overall page styling */
 html {
-    background-color: #738276;
+    background: radial-gradient(circle, #738276 0%, #484948 100%);
 }
 
 /* header styling */
@@ -79,16 +85,11 @@ header form input:first-child {
     grid-template-columns: repeat(3, 1fr);
     text-align: center;
     height: 50vh;
-    border-top: 50px solid #228B22;
-}
+    margin: 0;
+} 
 
-.splitThree {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
-    background-position: center;
-    font-size: 2.5em;
+#specialHeader {
+    margin: 0;
 }
 
 #bestSellerButton, #newReleaseButton, #VRTitleButton {
@@ -100,19 +101,19 @@ header form input:first-child {
 }
 
 #bestSellerContainer {
-    background-image: url("../uploads/sheldonCooper.jpg"); /* replace with actual best seller image */
+    background-image: url("../uploads/bestSellers.png");
     background-size: 100%;
     transition: all 0.3s ease-in-out;
 }
 
 #newReleaseContainer {
-    background-image: url("../uploads/howard.jpg"); /* replace with actual new release image */
+    background-image: url("../uploads/newRelease.png"); /* replace with actual new release image */
     background-size: 100%;
     transition: all 0.3s ease-in-out;
 }
 
 #vrTitlesContainer {
-    background-image: url("../uploads/raj.png"); /* replace with actual vr titles image */
+    background-image: url("../uploads/vrTitles.png");
     background-size: 100%;
     transition: all 0.3s ease-in-out;
 }
@@ -126,13 +127,16 @@ header form input:first-child {
     align-items: center;
     justify-content: center;
     height: 40vh;
-    border-top: 50px solid #228B22;
-    overflow: scroll;
+    overflow-y: scroll;
+}
+
+#specialContainer {
+    margin: 0;
 }
 
 #specialContainer h2 {
     font-size: 2.5em;
-    margin-bottom: 200px;
+    margin-bottom: 50px;
     border-bottom: 3px solid black;
     text-align: center;
 }
@@ -151,6 +155,7 @@ header form input:first-child {
     height: 30vh;
     width: 50%;
     border: 5px solid black;
+    animation: pulseInAndOut 2s 1 ease-in-out;
 }
 
 #aboutPageHistory h2 {
@@ -174,6 +179,15 @@ header form input:first-child {
     flex-direction: column;
     padding: 250px 0;
 }
+/* ------ Classes ------ */
+.splitThree {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    font-size: 2.5em;
+}
 
 .gameInfoContainer {
     margin-top: 50px;
@@ -191,10 +205,49 @@ header form input:first-child {
     margin-bottom: 50px;
 }
 
-figure .gameCoverImage {
-    box-shadow: 3px 3px 3px black;
+.sectionSeperator {
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(121deg, #228b22 0%, #299e38 50%, #228b22 100%);
+    margin: 0;
+}
+.specialGameContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: 400px;
+    margin-top: 100px;
 }
 
+.specialGameContainer div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.specialGameContainer h4 {
+    font-size: 1.9em;
+}
+
+.specialImage {
+    width: 200px;
+    height: 259px;
+    margin: 25px;
+}
+
+.specialGameName {
+    font-size: 2em;
+    width: 75%;
+}
+
+.oldPrice {
+   text-decoration: line-through; 
+}
+
+.oldPrice, .newPrice {
+    margin: 10px;
+}
 /* ----- Text Styling ----- */
 h1 {
     font-family: Audiowide;
@@ -235,7 +288,7 @@ p, li, td, label, input, button{
 
 figcaption {
     font-size: 2em;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 ul li {
@@ -247,8 +300,8 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     height: 25vh;
-    border-top: 50px solid #228B22;
     background-color: #BDB76B;
 }
 
@@ -267,6 +320,10 @@ footer nav menu li a:first-child {
 
 footer nav menu li a:last-child {
     margin-left: 100px;
+}
+
+footer p {
+    padding-top: 50px;
 }
 
 footer nav menu li a, input[type="submit"], input[type="reset"], button[type="submit"], button[type="reset"]  {
@@ -367,6 +424,11 @@ fieldset input, fieldset button, form input, form button {
 .gameCoverImage {
     width: 300px;
     height: auto;
+    box-shadow: 6px 4px 3px black;
+}
+
+figure .gameCoverImage {
+    animation: pulseInAndOut 2s 1 ease-in-out;
 }
 
 .profilePicture {
@@ -425,6 +487,10 @@ fieldset input, fieldset button, form input, form button {
     margin-bottom: 5px; 
 }
 
+.passwordText {
+    font-size: 0.6em;
+}
+
 /* ----- Table Styling ----- */
 table {
     border: 1px black solid;
@@ -438,6 +504,9 @@ tr {
 
 td {
     border: 3px solid black;
+    color: #001F54;
+    background-color: #D88373;
+    vertical-align: middle;
 }
 
 tr, td {
@@ -448,12 +517,16 @@ td {
     text-align: center;
 }
 
-table tbody tr td {
-
+#allGamesTable {
+    width: 75%;
 }
 
-#allGameTable tbody tr td:nth-child(2), #allReviewTable tbody tr td:nth-child(4) {
+#allGamesTable tbody tr td:nth-child(2), #allReviewTable tbody tr td:nth-child(4) {
     width: 10%;
+}
+
+#allReviewTable {
+    width: 50%;
 }
 
 #allReviewTable tbody tr td:nth-child(1), #allReviewTable tbody tr td:nth-child(3), #allReviewTable tbody tr td:nth-child(5) , #allReviewTable tbody tr td:nth-child(6)  {
