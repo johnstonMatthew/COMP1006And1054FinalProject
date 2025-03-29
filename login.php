@@ -3,31 +3,6 @@
     $description = "Login to your smoke account";
     require("includes/navigation/header.php");
     require_once ('./includes/php/database.php');
-
-    if (isset($_POST['logInSubmit']) ) {
-        $email = $_POST['email'];
-        $password = hash('sha512', $_POST['password']);
-
-        $results = $connection->prepare("SELECT accountId, accountName FROM useraccounts WHERE email = '$email' AND password = '$password'");
-
-        $results->execute();
-
-        $rowCount = $results -> rowCount();
-
-        if ($rowCount == 1) {
-            echo "Login was Successful";
-            foreach ($results as $key => $row) {
-                session_start();
-                $_SESSION['accountId'] = $row['accountId'];
-                $_SESSION['accountName'] = $row['accountName'];
-                Header('Location: profileManagement.php');
-            }
-        } else {
-            echo " Login was Unsuccessful";
-        }
-
-        $connection = null;  
-    }
 ?>
 <main id="notIndexMain"> 
     <!-- login form -->
@@ -47,6 +22,32 @@
             </div>
         </fieldset>
     </form>
+    <?php
+        if (isset($_POST['logInSubmit']) ) {
+            $email = $_POST['email'];
+            $password = hash('sha512', $_POST['password']);
+
+            $results = $connection->prepare("SELECT accountId, accountName FROM useraccounts WHERE email = '$email' AND password = '$password'");
+
+            $results->execute();
+
+            $rowCount = $results -> rowCount();
+
+            if ($rowCount == 1) {
+                echo "Login was Successful";
+                foreach ($results as $key => $row) {
+                    session_start();
+                    $_SESSION['accountId'] = $row['accountId'];
+                    $_SESSION['accountName'] = $row['accountName'];
+                    Header('Location: profileManagement.php');
+                }
+            } else {
+                echo "<p> Login was Unsuccessful </p>";
+            }
+
+            $connection = null;  
+        }
+    ?>
 </main>
 
 <?php

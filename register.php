@@ -113,6 +113,7 @@
             <div>
                 <label for="password"> Password </label>
                 <input type="password" name="password" id="password" required>
+                <p> <span class="passwordText"> Password Must Contain at Least 1 Number and Special Character, and be at Least 8 Characters in Length </span> </p>
             </div>
 
             <div> 

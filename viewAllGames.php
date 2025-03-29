@@ -10,7 +10,7 @@
         $gameTable = $connection->prepare("SELECT * FROM games");
         $gameTable->execute();
         $gameData = $gameTable->fetchAll();
-        echo "<table id='allGameTable'>";
+        echo "<table id='allGamesTable'>";
         echo "<thead> 
                 <tr> 
                     <td> Cover Image </td>
@@ -18,6 +18,7 @@
                     <td> Genre </td>
                     <td> Publish Date </td>
                     <td> Publisher </td>
+                    <td> View Game </td>
                 </tr>
               </thead>
               <tbody>";

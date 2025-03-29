@@ -57,8 +57,6 @@
         $accountId = $_SESSION['accountId'];
         $gameId = $_SESSION['gameId'];
 
-        echo "$gameName";
-
         $subject = $validate->sanitizeString($_POST['subject']); 
         $description = $validate->sanitizeString($_POST['description']);
 
