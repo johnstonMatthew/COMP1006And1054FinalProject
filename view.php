@@ -165,7 +165,7 @@
     
     <form method="POST" action="view.php"> 
         <fieldset> 
-            <legend>Login to Your Smoke Account</legend>
+            <legend> Leave a Review </legend>
             <input type="hidden" name='gameName' value="<?php echo "$gameName"?>"> 
             <div> 
                 <label for="subject"> Subject </label>

@@ -10,6 +10,13 @@
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
+
+@keyframes tiltBackAndForth {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(15deg); }
+    75% { transform: rotate(-15deg); }
+    100% { transform: rotate(0); }
+}
 /* overall page styling */
 html {
     background: radial-gradient(circle, #738276 0%, #484948 100%);
@@ -234,6 +241,7 @@ header form input:first-child {
     width: 200px;
     height: 259px;
     margin: 25px;
+    animation: tiltBackAndForth 3s infinite ease-in-out;
 }
 
 .specialGameName {

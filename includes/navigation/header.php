@@ -41,9 +41,18 @@
                         $username = $_SESSION['accountName']; 
                         echo "<p id='username'> $username </p>"; 
                     }
+                
+                if (isset($_SESSION['accountName'])) {
+                    echo "<form method='POST' action='logout.php' id='logoutForm'> 
+                    <button type='submit'> Log Out </button>
+                    </form>";
+                } else {
+                    echo "<form method='POST' action='login.php' id='loginForm'> 
+                    <button type='submit'> Log In </button>
+                    </form>"; 
+                }
+                
+                
                 ?> 
-                <form method="POST" action="logout.php" id="logoutForm"> 
-                    <button type="submit"> Log Out </button>
-                </form>
             </div>
         </header>

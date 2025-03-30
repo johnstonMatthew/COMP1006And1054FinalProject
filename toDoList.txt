@@ -5,9 +5,8 @@
 - Style all Pages
     - Style Tables for Accounts and Games
     - Finish Enhancements
-    - 
+
 
 -------- HTML ---------
 
 -------- Other ---------
-- Create More Reviews to Populate the Review Table (Optional (Needed for 100% Game Completion) )

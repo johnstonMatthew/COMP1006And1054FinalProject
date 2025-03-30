@@ -21,7 +21,6 @@
             $dateArray = explode("-", $value);
             /* Split the $value String Variable Into an Array Based on the Hyphen Character 
                 So 1967-05-23 Becomes ["1967", "05", "23"]*/
-
             //Convert Each of the Element of the Array Created Above Into an Integer
             $dateYear = (int)$dateArray[0];
             $dateMonth = (int)$dateArray[1];

@@ -1,4 +1,5 @@
 
+        <section class="sectionSeperator"></section>
         <footer>
             <nav>
                 <menu>
@@ -6,6 +7,7 @@
                     <li><a href="privacyPolicy.php"> Privacy Policy </a></li>
                 </menu>
             </nav>
+            <p> Matthew Johnston and Cole Winkler-Sawdon: 2025 </p>
         </footer>
     </body>
 </html>
