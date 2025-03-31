@@ -77,6 +77,7 @@
     }
 ?>
 
+<!-- page main -->
 <main id="notIndexMain"> 
     <?php 
         if (isset($categoryId)) {

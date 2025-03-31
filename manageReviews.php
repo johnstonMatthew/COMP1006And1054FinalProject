@@ -14,6 +14,44 @@
         exit;
     }
 
+    if (isset($_POST['submitEdit'])) {
+        $reviewId = $_POST['reviewId'];
+        $subject = $_POST['subject'];
+        $description = $_POST['description'];
+        $rating = $_POST['rating'];
+        $reviewDate = $_POST['reviewDate'];
+
+        $subject = $validate->sanitizeString($_POST['subject']);
+        $description = $validate->sanitizeString($_POST['description']);
+
+        $emptyMessage = $validate->checkEmpty($_POST, array("subject", "description", "rating"));
+        $validRating = $validate->validRating($rating);
+        
+        if ($emptyMessage != null) {
+            echo "<p>$emptyMessage</p>";
+        } else if ($validRating == false) {
+            echo "<p> Rating Must be Between 1 and 5 </p>";
+        } else {
+            $query = $connection->prepare("UPDATE reviews SET subject = '$subject', description = '$description', rating = '$rating', reviewDate = '$reviewDate' WHERE reviewId = '$reviewId'");
+            $query->execute();
+            
+            echo "<p> Review was Edited </p>";
+        }
+
+    }
+
+    if (isset($_POST['submitDelete'])) {
+        $reviewId = $_POST['reviewId'];
+        $accountId = $_SESSION['accountId'];
+        $confirmValue = $_POST['confirmDelete'];
+        
+        if ($confirmValue === "confirm") {
+            $query = $connection->prepare("DELETE FROM reviews WHERE reviewId = '$reviewId'");
+            $query->execute();
+            echo "<p> Review has Been Deleted </p>";
+        }
+    }
+
     $accountId = $_SESSION['accountId'];
     $query = "SELECT * FROM reviews WHERE accountId = '$accountId'";
 
@@ -26,10 +64,11 @@
     $rowCount = $result->rowCount();
 ?>
 
+<!-- page main -->
 <main id="notIndexMain">
         <?php
             if ($rowCount > 0) {
-
+                echo "<div id='tableContainer'>";
                 echo "<table id='allReviewTable'> 
                         <thead> 
                             <tr> 
@@ -76,8 +115,9 @@
                 echo "<p> You Have Left no Reviews </p>";
             }
         ?>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 
     <?php 
         if (isset($_POST['edit'])) {
@@ -125,39 +165,12 @@
                  </form>";
         }
 
-        if (isset($_POST['submitEdit'])) {
-            $reviewId = $_POST['reviewId'];
-            $subject = $_POST['subject'];
-            $description = $_POST['description'];
-            $rating = $_POST['rating'];
-            $reviewDate = $_POST['reviewDate'];
-
-            $subject = $validate->sanitizeString($_POST['subject']);
-            $description = $validate->sanitizeString($_POST['description']);
- 
-            $emptyMessage = $validate->checkEmpty($_POST, array("subject", "description", "rating"));
-            $validRating = $validate->validRating($rating);
-            
-            if ($emptyMessage != null) {
-                echo "<p>$emptyMessage</p>";
-            } else if ($validRating == false) {
-                echo "<p> Rating Must be Between 1 and 5 </p>";
-            } else {
-                $query = $connection->prepare("UPDATE reviews SET subject = '$subject', description = '$description', rating = '$rating', reviewDate = '$reviewDate' WHERE reviewId = '$reviewId'");
-                $query->execute();
-                
-                echo "Review was Edited";
-            }
-            $connection = null;
-
-        }
-
         if (isset($_POST['delete'])) {
             $reviewId = $_POST['reviewId'];
-
+    
             $query = "SELECT * FROM reviews WHERE reviewId = '$reviewId'";
             $reviewRow = $utilities->returnData($query, $connection);
-
+    
             foreach ($reviewRow as $key=> $row) {
                 $subject = $row['subject'];
                 $description = $row['description'];
@@ -165,38 +178,26 @@
                 $reviewDate = $row['reviewDate'];
             }
             echo "<h3> You Would Like to Delete This Review? </h3>";
-            echo "<h3> Your Review </h3>
+            echo "<h4> Your Review </h4>
                   <div id='deleteReviewSummary'> 
                       <p> $subject </p>
                       <p> $description </p>
                       <p> $rating </p>
                       <p> $reviewDate </p>
                   </div>
-                      <form method='POST' action='manageReviews.php'>
+                      <form method='POST' action='manageReviews.php' id='deleteReviewForm'>
                           <fieldset> 
-                              <legend> Delete Profile </legend>
-                              <div> 
+                              <legend> Delete </legend>
+                              <div id='deleteDiv'> 
                                   <input type='hidden' name='reviewId' value='$reviewId'>
                                   <label for='confirmDelete'> Confirm Delete </label>
                                   <input type='checkBox' name='confirmDelete' id='confirmDelete' value='confirm' required>  
                               </div>
-                            <input type='submit' name='submitDelete'>
+                                <input type='submit' name='submitDelete'>
                         </fieldset>
                       </form>";
         }
-
-        if (isset($_POST['submitDelete'])) {
-            $reviewId = $_POST['reviewId'];
-            $accountId = $_SESSION['accountId'];
-            $confirmValue = $_POST['confirmDelete'];
-            echo "<p> $confirmValue </p>";
-            
-            if ($confirmValue === "confirm") {
-                $query = $connection->prepare("DELETE FROM reviews WHERE reviewId = '$reviewId'");
-                $query->execute();
-                echo "<p> Review has Been Deleted </p>";
-            }
-        }
+        $connection = null;
     ?>
 </main>
 

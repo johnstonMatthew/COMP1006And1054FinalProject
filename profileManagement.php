@@ -16,62 +16,140 @@
 
     $accountId = $_SESSION['accountId'];
 
-    $loggedInUserData = $utilities->returnData("SELECT * FROM useraccounts WHERE accountId = '$accountId'", $connection);
-    
+    if (isset($_POST['updateSubmit'])) {
+        $newUsername = $_POST['uAccountName'];
+        $newDateOfBirth = $_POST['uDateOfBirth'];
+        $newEmail = $_POST['uEmail'];
+        $newfName = $_POST['ufName'];
+        $newlName = $_POST['ulName'];
+        $newProfilePicture = $_FILES['file']['name'];
 
-    foreach ($loggedInUserData as $key=> $row) {
-        $currentUsername = $row['accountName'];
-        $currentDateOfBirth = $row['dateOfBirth'];
-        $currentEmail = $row['email'];
-        $currentfName = $row['fName'];
-        $currentlName = $row['lName'];
-        $currentProfilePicture = $row['profilePicture'];
+        $newUsername = $validate->sanitizeString($_POST['uAccountName']);
+        $newDateOfBirth = $validate->sanitizeString($_POST['uDateOfBirth']);
+        $newEmail = $validate->sanitizeString($_POST['uEmail']);
+
+        $emptyMessage = $validate->checkEmpty($_POST, array('uAccountName', 'uDateOfBirth', 'uEmail', 'ufName', 'ulName'));
+        $validBirthDate = $validate->validDateOfBirth($newDateOfBirth);
+        $validEmail = $validate->validEmail($newEmail);
+        $validFirstName = $validate->validName($newfName);
+        $validLastName = $validate->validName($newlName);
+
+        if ($newProfilePicture == null) {
+            if ($emptyMessage != "") {
+                echo "<p>$emptyMessage</p>";
+            } elseif ($validBirthDate == false) {
+                echo "<p>Date of birth is invalid</p>";
+            } elseif ($validEmail == false) {
+                echo "<p> Email Field is invalid </p>";
+            } elseif ($validFirstName == false) {
+                echo "<p> First name field is invalid </p>";
+            } elseif ($validLastName == false) {
+                echo "<p> Last name field is invalid </p>";
+            } else { 
+                $result = $connection->prepare("UPDATE useraccounts SET accountName = '$newUsername', dateOfBirth = '$newDateOfBirth', email = '$newEmail', fName = '$newfName', lName = '$newlName' WHERE accountId = '$accountId'");
+                $result->execute();
+            }
+        } else {
+            $filePath = './uploads/' . $newProfilePicture;
+            $fileExt = pathinfo($filePath, PATHINFO_EXTENSION);
+            $fileExt = strtolower($fileExt);
+            
+            if ($newProfilePicture != null) {
+                $query = $connection->prepare("UPDATE useraccounts SET accountName = '$newUsername', dateOfBirth = '$newDateOfBirth', email = '$newEmail', fName = '$newfName', lName = '$newlName', profilePicture = '$filePath' WHERE accountId = '$accountId'");
+                    $validFileExt = array("svg", "jpeg", "jpg", "png");
+                    if (in_array($fileExt, $validFileExt)) {
+                        if (move_uploaded_file($_FILES['file']['tmp_name'], $filePath)) {
+                            $query->execute();
+                            $_SESSION['accountName'] = $newUsername;
+                            echo "<p> Account was Successfully Updated </p>";
+                        }
+                    }
+            } else {
+                $query = $connection->prepare("UPDATE useraccounts SET accountName = '$newUsername', dateOfBirth = '$newDateOfBirth', email = '$newEmail', fName = '$newfName', lName = '$newlName' WHERE accountId = '$accountId'");
+                $query->execute();
+                $_SESSION['accountName'] = $newUsername;
+                echo "<p> Account was Successfully Updated </p>";
+            }
+        }
     }
 
+    if (isset($_POST['submitDelete'])) {
+        $confirmValue = $_POST['confirmDelete'];
+        echo "<p> $confirmValue </p>";
+        if ($confirmValue === "confirm") {
+            $result = $connection->prepare("DELETE FROM reviews WHERE accountId = '$accountId'");
+            $query = $connection->prepare("DELETE FROM useraccounts WHERE accountId = '$accountId' ");
+            
+            $result->execute();
+            $query->execute();
+            echo "<p> Account has Been Deleted </p>";
+            $connection = null;
+
+            Header("Location: logout.php");
+            exit;
+        }
+    }
 ?>
 
+<!-- page main -->
 <main id="notIndexMain"> 
-    <table> 
-        <thead> 
-            <tr> 
-                <td> Account ID </td>
-                <td> Profile Picture </td>
-                <td> Account Name </td>
-                <td> Date of Birth </td>
-                <td> Email </td>
-                <td> First Name </td>
-                <td> Last Name </td>
-            </tr>
-        </thead>
+    <div id="tableContainer"> 
+        <table> 
+            <thead> 
+                <tr> 
+                    <td> Account ID </td>
+                    <td> Profile Picture </td>
+                    <td> Account Name </td>
+                    <td> Date of Birth </td>
+                    <td> Email </td>
+                    <td> First Name </td>
+                    <td> Last Name </td>
+                </tr>
+            </thead>
 
-        <tbody> 
-            <?php 
-                $accountData = $utilities->returnData("SELECT * FROM useraccounts", $connection);
-                foreach ($accountData as $key => $row) {
-                    $accountId = $row['accountId'];
-                    $accountName = $row['accountName'];
-                    $dateOfBirth = $row['dateOfBirth'];
-                    $email = $row['email'];
-                    $fName = $row['fName'];
-                    $lName = $row['lName'];
-                    $profilePicture = $row['profilePicture'];
+            <tbody> 
+                <?php 
+                    $accountData = $utilities->returnData("SELECT * FROM useraccounts", $connection);
+                    foreach ($accountData as $key => $row) {
+                        $accountId = $row['accountId'];
+                        $accountName = $row['accountName'];
+                        $dateOfBirth = $row['dateOfBirth'];
+                        $email = $row['email'];
+                        $fName = $row['fName'];
+                        $lName = $row['lName'];
+                        $profilePicture = $row['profilePicture'];
 
-                    echo "<tr>";
-                    echo "<td> $accountId </td>";
-                    echo '<td> <img class="profilePicture" src="' . $profilePicture . '" alt="image"> </td>';
-                    echo "<td> $accountName </td>";
-                    echo "<td> $dateOfBirth </td>";
-                    echo "<td> $email </td>";
-                    echo "<td> $fName </td>";
-                    echo "<td> $lName </td>";
-                    echo "</tr>";
-                }
-            ?>
-        </tbody>
-    </table>
+                        echo "<tr>";
+                        echo "<td> $accountId </td>";
+                        echo '<td> <img class="profilePicture" src="' . $profilePicture . '" alt="image"> </td>';
+                        echo "<td> $accountName </td>";
+                        echo "<td> $dateOfBirth </td>";
+                        echo "<td> $email </td>";
+                        echo "<td> $fName </td>";
+                        echo "<td> $lName </td>";
+                        echo "</tr>";
+                    }
+                ?>
+            </tbody>
+        </table>
+    </div>
 
     <div id="editAndDeleteContainer"> 
         <form method="POST" enctype="multipart/form-data">
+            <?php 
+                $accountId = $_SESSION['accountId'];
+                $loggedInUserData = $utilities->returnData("SELECT * FROM useraccounts WHERE accountId = '$accountId'", $connection);
+    
+
+                foreach ($loggedInUserData as $key=> $row) {
+                    $currentUsername = $row['accountName'];
+                    $currentDateOfBirth = $row['dateOfBirth'];
+                    $currentEmail = $row['email'];
+                    $currentfName = $row['fName'];
+                    $currentlName = $row['lName'];
+                    $currentProfilePicture = $row['profilePicture'];
+                }
+            ?>
             <fieldset> 
                 <legend> Edit Profile </legend>
                 <div>
@@ -101,7 +179,7 @@
 
                 <div>
                     <label for="file"> Add Profile Picture </label>
-                    <input type="file" name="file">
+                    <input type="file" name="file" id="file">
                 </div>
 
                 <div class="buttonContainer">
@@ -123,77 +201,7 @@
         </form>
     </div>
 
-    <?php 
-        if (isset($_POST['updateSubmit'])) {
-            $newUsername = $_POST['uAccountName'];
-            $newDateOfBirth = $_POST['uDateOfBirth'];
-            $newEmail = $_POST['uEmail'];
-            $newfName = $_POST['ufName'];
-            $newlName = $_POST['ulName'];
-            $newProfilePicture = $_FILES['file']['name'];
     
-            $emptyMessage = $validate->checkEmpty($_POST, array('uAccountName', 'uDateOfBirth', 'uEmail', 'ufName', 'ulName'));
-            $validBirthDate = $validate->validDateOfBirth($newDateOfBirth);
-            $validEmail = $validate->validEmail($newEmail);
-            $validFirstName = $validate->validName($newfName);
-            $validLastName = $validate->validName($newlName);
-    
-            if ($newProfilePicture == null) {
-                if ($emptyMessage != "") {
-                    echo "<p>$emptyMessage</p>";
-                } elseif ($validBirthDate == false) {
-                    echo "<p>Date of birth is invalid</p>";
-                } elseif ($validEmail == false) {
-                    echo "<p> Email Field is invalid </p>";
-                } elseif ($validFirstName == false) {
-                    echo "<p> First name field is invalid </p>";
-                } elseif ($validLastName == false) {
-                    echo "<p> Last name field is invalid </p>";
-                } else { 
-                    $result = $connection->prepare("UPDATE useraccounts SET accountName = '$newUsername', dateOfBirth = '$newDateOfBirth', email = '$newEmail', fName = '$newfName', lName = '$newlName' WHERE accountId = '$accountId'");
-                    $result->execute();
-                }
-            } else {
-                $filePath = './uploads/' . $newProfilePicture;
-                $fileExt = pathinfo($filePath, PATHINFO_EXTENSION);
-                $fileExt = strtolower($fileExt);
-                
-                if ($newProfilePicture != null) {
-                    $query = $connection->prepare("UPDATE useraccounts SET accountName = '$newUsername', dateOfBirth = '$newDateOfBirth', email = '$newEmail', fName = '$newfName', lName = '$newlName', profilePicture = '$filePath' WHERE accountId = '$accountId'");
-                        $validFileExt = array("svg", "jpeg", "jpg", "png");
-                        if (in_array($fileExt, $validFileExt)) {
-                            if (move_uploaded_file($_FILES['file']['tmp_name'], $filePath)) {
-                                $query->execute();
-                                $_SESSION['accountName'] = $newUsername;
-                                echo "Account was Successfully Updated";
-                            }
-                        }
-                } else {
-                    $query = $connection->prepare("UPDATE useraccounts SET accountName = '$newUsername', dateOfBirth = '$newDateOfBirth', email = '$newEmail', fName = '$newfName', lName = '$newlName' WHERE accountId = '$accountId'");
-                    $query->execute();
-                    $_SESSION['accountName'] = $newUsername;
-                    echo "Account was Successfully Updated";
-                }
-            }
-        }
-    
-        if (isset($_POST['submitDelete'])) {
-            $confirmValue = $_POST['confirmDelete'];
-            echo "<p> $confirmValue </p>";
-            if ($confirmValue === "confirm") {
-                $result = $connection->prepare("DELETE FROM reviews WHERE accountId = '$accountId'");
-                $query = $connection->prepare("DELETE FROM useraccounts WHERE accountId = '$accountId' ");
-                
-                $result->execute();
-                $query->execute();
-                echo "<p> Account has Been Deleted </p>";
-                $connection = null;
-    
-                Header("Location: logout.php");
-                exit;
-            }
-        }
-    ?>
 </main>
 
 <?php

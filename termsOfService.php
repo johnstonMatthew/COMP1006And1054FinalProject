@@ -3,7 +3,8 @@
     $description = "Terms of Service for COMP1006/COMP1054 Final Project";
     require('includes/navigation/header.php');
 ?>
-   
+
+<!-- page main -->
 <main id="notIndexMain">
     <section>
         <h2> Term of Service </h2>

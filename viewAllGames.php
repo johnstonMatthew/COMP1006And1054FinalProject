@@ -5,11 +5,13 @@
     require_once('includes/php/database.php');
 ?>
 
+<!-- page main -->
 <main id="notIndexMain">
     <?php
         $gameTable = $connection->prepare("SELECT * FROM games");
         $gameTable->execute();
         $gameData = $gameTable->fetchAll();
+        echo "<div id='tableContainer'>";
         echo "<table id='allGamesTable'>";
         echo "<thead> 
                 <tr> 
@@ -52,6 +54,7 @@
         }
         echo "</tbody>";
         echo "</table>";
+        echo "</div>";
         $connection = null;
     ?>
     

@@ -4,11 +4,12 @@
     require("includes/navigation/header.php");
     require_once ('./includes/php/database.php');
 ?>
+<!-- page main -->
 <main id="notIndexMain"> 
     <!-- login form -->
     <form class="login-form" method="post">
         <fieldset>
-            <legend>Login to Your Smoke Account</legend>
+            <legend> Login </legend>
             <div>
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" required>

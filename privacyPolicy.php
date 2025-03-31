@@ -4,6 +4,7 @@
     require('includes/navigation/header.php');
 ?>
 
+<!-- page main -->
 <main id="notIndexMain">
     <section>
         <div>

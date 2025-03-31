@@ -8,6 +8,7 @@
     $validate = new Validate();
 ?>
 
+<!-- page main -->
 <main id="notIndexMain">  
     <form id="registerForm" method="POST" enctype='multipart/form-data'>
         <fieldset>
@@ -50,7 +51,7 @@
 
             <div>
                 <label for="file"> Add Profile Picture </label>
-                <input type="file" name="file">
+                <input type="file" name="file" id="file">
             </div>
 
             <div class="buttonContainer">
@@ -74,6 +75,10 @@
             $password = $_POST['password'];
             $confirmPass = $_POST['confirmPass'];
             $profilePicture = $_FILES['file']['name'];
+
+            $accountName = $validate->sanitizeString($_POST['accountName']);
+            $email = $validate->sanitizeString($_POST['email']);
+            $password = $validate->sanitizeString($_POST['password']);
     
             if ($profilePicture == null || $profilePicture == "") {
                 $profilePicture = "placeholder.png";
@@ -123,10 +128,10 @@
                 if (in_array($fileExt, $validFileExt)) {
                     if (move_uploaded_file($_FILES['file']['tmp_name'], $filePath)) {
                         $query->execute();
-                        echo "Account was Successfully Registered";
+                        echo "<p> Account was Successfully Registered </p>";
                     } else if ($filePath == "./uploads/placeholder.png") {
                         $query->execute();
-                        echo "Account was Successfully Registered";
+                        echo "<p> Account was Successfully Registered </p>";
                     }
                 }
             }

@@ -18,6 +18,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Anta&family=Audiowide&family=Limelight&display=swap" rel="stylesheet">
     </head>
     <body>
+        <!-- Page Header -->
         <header>
             <img src="images/companyLogo.png" alt="Smoke Logo">
             <form method="POST" action="view.php" id="searchForm" >
@@ -66,8 +67,7 @@
                     <button type='submit'> Log In </button>
                     </form>"; 
                 }
-                
-                
+                 
                 ?> 
             </div>
         </header>

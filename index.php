@@ -43,34 +43,42 @@
 ?>
 <!-- Title -->
 <div class="title">
-    <h1> Smoke </h1>
+    <div>
+        <h1> Smoke </h1>
+    </div>
 </div>
 <!-- Page Main -->
 <main>
-    <section class="sectionSeperator"></section>
+    <section class="sectionSeperator"> <h2> Categories </h2> </section>
     <div id="categoryContainer">
-        <section id="bestSellerContainer" class="splitThree">
-            <form method="POST" action="view.php">
-                <input type="hidden" name="bestSellerId" value="1">
-                <input type="submit" name="bestSubmit" value="Best Sellers" id="bestSellerButton">
-            </form>
-        </section>
+        <div id="bestSellerContainer" class="splitThree">
+            <div>
+                <form method="POST" action="view.php">
+                    <input type="hidden" name="bestSellerId" value="1">
+                    <input type="submit" name="bestSubmit" value="Best Sellers" id="bestSellerButton">
+                </form>
+            </div>
+        </div>
 
-        <section id="vrTitlesContainer" class="splitThree">
-            <form method="POST" action="view.php">  
-                <input type="hidden" name="VRTitleId" value="2">
-                <input type="submit" name="vrSubmit" value="VR Titles" id="VRTitleButton">
-            </form>
-        </section>
+        <div id="vrTitlesContainer" class="splitThree">
+            <div>
+                <form method="POST" action="view.php">  
+                    <input type="hidden" name="VRTitleId" value="2">
+                    <input type="submit" name="vrSubmit" value="VR Titles" id="VRTitleButton">
+                </form>
+            </div>
+        </div>
 
-        <section id="newReleaseContainer" class="splitThree">
-            <form method="POST" action="view.php">  
-                <input type="hidden" name="newReleaseId" value="3">
-                <input type="submit" name="newSubmit" value="New Releases" id="newReleaseButton">
-            </form>  
-        </section>
+        <div id="newReleaseContainer" class="splitThree">
+            <div>
+                <form method="POST" action="view.php">  
+                    <input type="hidden" name="newReleaseId" value="3">
+                    <input type="submit" name="newSubmit" value="New Releases" id="newReleaseButton">
+                </form> 
+            </div> 
+        </div>
     </div>
-    <section class="sectionSeperator"> <h2 id="specialHeader"> Specials </h2> </section>
+    <section class="sectionSeperator"> <h2 class="specialHeader"> Special </h2> </section>
     <div id="categoryContainer2"> 
         <?php 
             $gameData = $connection->prepare("SELECT * FROM games");
@@ -78,7 +86,7 @@
 
             $rowCount = $gameData->rowCount();
 
-            $randomNum = rand(1, $rowCount);
+            $randomNum = rand(7, $rowCount);
             $oldPriceStart = rand(10, 60);
             $oldPriceEnd = rand(0, 99);
 
@@ -90,14 +98,14 @@
 
             $newPrice = round( (float) $oldPrice * 0.70, 2);
 
-            $gameData = $utilities->returnData("SELECT * FROM games WHERE gameId % $randomNum = 0 ", $connection);
+            $gameData = $utilities->returnData("SELECT * FROM games WHERE gameId = $randomNum", $connection);
 
             foreach ($gameData as $key=> $row) {
                 $coverImage = $row['coverImage'];
                 $gameName = $row['name'];
                 echo 
                 "<div class='specialGameContainer'>
-                    <img src=". $coverImage ." alt=". $gameName." Image class='specialImage'> 
+                    <img src='". $coverImage ."' alt='". $gameName." Image' class='specialImage'> 
                     <div> 
                         <h3 class='specialGameName'> $gameName </h3>
                         <h4> Old Price </h4>

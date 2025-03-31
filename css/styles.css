@@ -26,7 +26,7 @@ body {
     width: 100%;
 }
 
-main {
+main, #notIndexMain {
     width: 100%;
 }
 
@@ -37,7 +37,7 @@ header {
     justify-content: center;
     position: absolute;
     height: 20vh;
-    width: 95%;
+    width: 100%;
 }
 
 nav {
@@ -74,23 +74,26 @@ nav menu li a:active {
 header img {
     width: 10%;
     height: 80%;
-    margin-left: 20px;
 }
-
-header form input:first-child {
-    margin-left: 20px;
-}
-
 /* title styling */
 .title {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url("../images/placeholder.png");
-    background-size: cover;
+    background-image: url("../images/nineSolsBanner.jpg");
+    background-size: 100% 100%;
     background-position: center;
-    /* background-attachment: fixed;*/ /* (once page is more finished see how this looks) */
+    background-attachment: fixed; /* (once page is more finished see how this looks) */
+}
+
+.title div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
 }
 
 /* category styling */
@@ -121,6 +124,15 @@ header form input:first-child {
     transition: all 0.3s ease-in-out;
 }
 
+#bestSellerContainer div:first-child, #vrTitlesContainer div:first-child, #newReleaseContainer div:first-child {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 #newReleaseContainer {
     background-image: url("../uploads/newRelease.png"); /* replace with actual new release image */
     background-size: 100%;
@@ -143,12 +155,11 @@ header form input:first-child {
     justify-content: center;
     flex-direction: column;
     height: 50vh;
-    overflow-y: scroll;
 }
+
 
 #specialContainer h2 {
     font-size: 2.5em;
-    margin-bottom: 50px;
     border-bottom: 3px solid black;
     text-align: center;
 }
@@ -159,6 +170,13 @@ header form input:first-child {
 
 #mobileNav {
     display: none;
+}
+
+#tableContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
 }
 
 /* ----- about page styling ----- */
@@ -233,7 +251,7 @@ header form input:first-child {
     align-items: center;
     flex-direction: row;
     height: 400px;
-    margin-top: 100px;
+    margin-top: 25px;
 }
 
 .specialGameContainer div {
@@ -269,11 +287,8 @@ header form input:first-child {
 /* ----- Text Styling ----- */
 h1 {
     font-family: Audiowide;
+    color: white;
     font-size: 6em;
-}
-
-h2 {
-    margin: 25px 0;
 }
 
 h2, h3 {
@@ -360,12 +375,18 @@ footer nav menu li a:hover {
 }
 
 /* Form Styling */
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 fieldset {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 50%;
+    width: 75%;
     border: 3px solid lightgrey;
     border-radius: 50px;
 }
@@ -376,6 +397,15 @@ fieldset div {
     flex-direction: column;
     margin: 5px;
 }
+
+#deleteReviewForm fieldset div {
+   padding: 25px 50px 25px 50px; 
+}
+
+#deleteReviewForm fieldset input[type='submit']{
+    margin-bottom: 10px;
+}
+
 
 fieldset div textarea {
     width: 300px;
@@ -511,6 +541,7 @@ figure .gameCoverImage {
 
 /* ----- Table Styling ----- */
 table {
+    width: 100%;
     border: 1px black solid;
     border-collapse: collapse;
     margin: 15px;
@@ -525,6 +556,8 @@ td {
     color: #001F54;
     background-color: #D88373;
     vertical-align: middle;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 tr, td {
@@ -533,10 +566,6 @@ tr, td {
 
 td {
     text-align: center;
-}
-
-#allGamesTable {
-    width: 75%;
 }
 
 #allGamesTable tbody tr td:nth-child(2), #allReviewTable tbody tr td:nth-child(4) {
@@ -555,6 +584,7 @@ td {
     width: 25%;
 }
 
+/* ----- media queries ----- */
 @media screen and (max-width: 768px) {
     header {
         height: auto;
@@ -566,7 +596,12 @@ td {
     header nav menu li {
         padding: 10px 0 10px 0;
     }
-    main, #notIndexMain {
+
+    .title {
+        background-image: none;
+    }
+
+    #notIndexMain {
         padding-top: 400px;
     }
     footer {
@@ -590,6 +625,7 @@ td {
 
     h1 {
         font-size: 2em;
+        padding-top: 400px;
     }
 
     #searchForm {
@@ -598,7 +634,9 @@ td {
         justify-content: center;
         flex-direction: column;
     }
-
+    #searchForm input {
+        margin: 5px 0;
+    }
     #categoryContainer {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
@@ -606,13 +644,13 @@ td {
         height: 150vh;
     }
 
-    #categoryContainer section {
+    #categoryContainer div {
         border-top: 5px solid #228b22;
         border-bottom: 5px solid #228b22;
         width: 100%;
     }
 
-    #categoryContainer section form input {
+    #categoryContainer div form input {
         font-size: 0.9em;
     }
 
@@ -627,6 +665,7 @@ td {
     #editAndDeleteContainer, #mobileNav nav menu {
         display: flex;
         flex-direction: column;
+        width: 100%;
     }
 
     #searchForm, #mobileNav {
@@ -635,12 +674,20 @@ td {
         justify-content: center;
     }
 
+    #searchForm input {
+        width: 100%;
+    }
+
     #categoryContainer2 {
         height: 85vh;
     }
+    
+    #notIndexMain {
+        padding-top: 500px;
+    }
 
     .gameCoverImage {
-        width: 200px;
+        width: 150px;
     }
 
     .review {
@@ -654,5 +701,35 @@ td {
     .specialGameContainer {
         flex-direction: column;
         margin-bottom: 250px;
+    }
+
+    #tableContainer {
+        width: 100%;
+        height: auto;
+        overflow-x: scroll;
+    }
+
+    table {
+        display: block;
+    }
+
+    #tableContainer table {
+        width: 100%
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    #bestSellerButton, #VRTitleButton, #newReleaseButton {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .title {
+        background-image: none;
+    }
+
+    .title div {
+        background-color: transparent;
     }
 }

@@ -32,7 +32,7 @@
             </div>
             <div>
                 <label for="contact-details">Details on Reason</label>
-                <textarea type="textarea" id="contact-details"> </textarea>
+                <textarea id="contact-details"> </textarea>
             </div>
             <div id="contact-btn">
                 <button type="submit">Submit</button>

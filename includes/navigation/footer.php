@@ -1,5 +1,6 @@
 
-        <section class="sectionSeperator"></section>
+        <div class="sectionSeperator"></div>
+        <!-- Page Footer -->
         <footer>
             <nav>
                 <menu>
