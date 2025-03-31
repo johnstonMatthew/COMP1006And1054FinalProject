@@ -71,46 +71,43 @@
         </section>
     </div>
     <section class="sectionSeperator"> <h2 id="specialHeader"> Specials </h2> </section>
-    <div id="categoryContainer2">
-        <section id="specialContainer">
-            
-            <?php 
-                $gameData = $connection->prepare("SELECT * FROM games");
-                $gameData->execute();
+    <div id="categoryContainer2"> 
+        <?php 
+            $gameData = $connection->prepare("SELECT * FROM games");
+            $gameData->execute();
 
-                $rowCount = $gameData->rowCount();
+            $rowCount = $gameData->rowCount();
 
-                $randomNum = rand(1, $rowCount);
-                $oldPriceStart = rand(10, 60);
-                $oldPriceEnd = rand(0, 99);
+            $randomNum = rand(1, $rowCount);
+            $oldPriceStart = rand(10, 60);
+            $oldPriceEnd = rand(0, 99);
 
-                $oldPrice = (string)$oldPriceStart . "." . (string)$oldPriceEnd;
+            $oldPrice = (string)$oldPriceStart . "." . (string)$oldPriceEnd;
 
-                if (strlen($oldPrice) == 4) {
-                    $oldPrice . "0";
-                }
+            if (strlen($oldPrice) == 4) {
+                $oldPrice . "0";
+            }
 
-                $newPrice = round( (float) $oldPrice * 0.70, 2);
+            $newPrice = round( (float) $oldPrice * 0.70, 2);
 
-                $gameData = $utilities->returnData("SELECT * FROM games WHERE gameId % $randomNum = 0 ", $connection);
+            $gameData = $utilities->returnData("SELECT * FROM games WHERE gameId % $randomNum = 0 ", $connection);
 
-                foreach ($gameData as $key=> $row) {
-                    $coverImage = $row['coverImage'];
-                    $gameName = $row['name'];
-                    echo 
-                    "<div class='specialGameContainer'>
-                        <img src=". $coverImage ." alt=". $gameName." Image class='specialImage'> 
-                        <div> 
-                            <h3 class='specialGameName'> $gameName </h3>
-                            <h4> Old Price </h4>
-                            <p class='oldPrice'> $$oldPrice </p>
-                            <h4> Sale Price </h4>
-                            <p class='newPrice'> $$newPrice </p>
-                        </div>
-                    </div>"; 
-                }      
-            ?>
-        </section>
+            foreach ($gameData as $key=> $row) {
+                $coverImage = $row['coverImage'];
+                $gameName = $row['name'];
+                echo 
+                "<div class='specialGameContainer'>
+                    <img src=". $coverImage ." alt=". $gameName." Image class='specialImage'> 
+                    <div> 
+                        <h3 class='specialGameName'> $gameName </h3>
+                        <h4> Old Price </h4>
+                        <p class='oldPrice'> $$oldPrice </p>
+                        <h4> Sale Price </h4>
+                        <p class='newPrice'> $$newPrice </p>
+                    </div>
+                </div>"; 
+            }      
+        ?>
     </div>
 </main>
 <?php 

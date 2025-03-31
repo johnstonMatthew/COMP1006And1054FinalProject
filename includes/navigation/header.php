@@ -20,20 +20,35 @@
     <body>
         <header>
             <img src="images/companyLogo.png" alt="Smoke Logo">
-            <form method="POST" action="view.php" >
+            <form method="POST" action="view.php" id="searchForm" >
                 <input type="text" name="searchGameName" id="searchGameName" Placeholder="Search for Games Here">
                 <input type="submit" name="searchSubmit" value='Search'>
             </form>
-            <nav>
-                <menu>
-                    <li><a href="index.php"> Home </a></li>
-                    <li><a href="about.php"> About </a></li>
-                    <li><a href="login.php"> Login </a></li>
-                    <li><a href="register.php"> Register </a></li>
-                    <li><a href="profileManagement.php"> Manage Profiles </a></li>
-                    <li><a href="manageReviews.php"> Manage Reviews </a></li>
-                </menu> 
-            </nav>
+
+            <div id="desktopNav"> 
+                <nav>
+                    <menu>
+                        <li><a href="index.php"> Home </a></li>
+                        <li><a href="about.php"> About </a></li>
+                        <li><a href="login.php"> Login </a></li>
+                        <li><a href="register.php"> Register </a></li>
+                        <li><a href="profileManagement.php"> Manage Profiles </a></li>
+                        <li><a href="manageReviews.php"> Manage Reviews </a></li>
+                    </menu> 
+                </nav>
+            </div>
+            <div id="mobileNav">
+                <nav> 
+                    <menu> 
+                        <li><a href="index.php"> Home </a></li>
+                        <li><a href="about.php"> About </a></li>
+                        <li><a href="login.php"> Login </a></li>
+                        <li><a href="register.php"> Register </a></li>
+                        <li><a href="profileManagement.php"> Manage Profiles </a></li>
+                        <li><a href="manageReviews.php"> Manage Reviews </a></li>
+                    </menu> 
+                </nav>
+            </div>
             <div id="logoutContainer">
                 <?php 
                     session_start(); 

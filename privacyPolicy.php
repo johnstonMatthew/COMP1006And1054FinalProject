@@ -6,8 +6,6 @@
 
 <main id="notIndexMain">
     <section>
-        <h2> Privacy Policy </h2>
-
         <div>
             <h3> Privacy Policy </h3>
             <p> Effective Date: March 1st 2025, Smoke ("we," "our," or "us") respects your privacy and is committed to protecting your personal data. This Privacy Policy outlines how we collect, use, and safeguard your information.</p>

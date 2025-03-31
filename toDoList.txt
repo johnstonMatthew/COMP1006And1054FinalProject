@@ -6,7 +6,6 @@
     - Style Tables for Accounts and Games
     - Finish Enhancements
 
-
 -------- HTML ---------
 
 -------- Other ---------

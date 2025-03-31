@@ -116,8 +116,6 @@
                     echo "<p> $description </p>";
                 echo "</div>";
             echo "</div>"; 
-            
-            echo " <div id='reviewContainer'>";
 
             if (isset($categoryId)) {
                 $query = "SELECT reviews.gameId, profilePicture, accountName, subject, reviews.description AS reviewDescription, rating, reviewDate 
@@ -156,8 +154,6 @@
                     echo "</div>";
                 echo "</div>";
             }
-
-            echo "</div>";
         }
 
         $connection = null;

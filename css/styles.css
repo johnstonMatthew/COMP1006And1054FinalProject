@@ -22,6 +22,14 @@ html {
     background: radial-gradient(circle, #738276 0%, #484948 100%);
 }
 
+body {
+    width: 100%;
+}
+
+main {
+    width: 100%;
+}
+
 /* header styling */
 header {
     display: flex;
@@ -133,12 +141,9 @@ header form input:first-child {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40vh;
+    flex-direction: column;
+    height: 50vh;
     overflow-y: scroll;
-}
-
-#specialContainer {
-    margin: 0;
 }
 
 #specialContainer h2 {
@@ -152,6 +157,10 @@ header form input:first-child {
     padding-top: 20px;
 }
 
+#mobileNav {
+    display: none;
+}
+
 /* ----- about page styling ----- */
 #aboutPageHistory {
     display: flex;
@@ -159,8 +168,8 @@ header form input:first-child {
     justify-content: center;
     flex-direction: column;
     background-color: #BDB76B;
-    height: 30vh;
-    width: 50%;
+    height: auto;
+    width: 75%;
     border: 5px solid black;
     animation: pulseInAndOut 2s 1 ease-in-out;
 }
@@ -173,6 +182,7 @@ header form input:first-child {
 
 #aboutPageHistory p {
     color: black;
+    padding-bottom: 15px;
 }
 
 #aboutForm {
@@ -355,7 +365,7 @@ fieldset {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 400px;
+    width: 50%;
     border: 3px solid lightgrey;
     border-radius: 50px;
 }
@@ -393,13 +403,6 @@ fieldset input, fieldset button, form input, form button {
     color: black
 }
 /* ----- IDs ----- */
-#reviewContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
 #editAndDeleteContainer {
     display: flex;
     flex-direction: row;
@@ -462,7 +465,7 @@ figure .gameCoverImage {
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    width: 800px;
+    width: 50%;
     border: 5px solid black;
     border-radius: 50px;
     padding: 5px;
@@ -474,22 +477,29 @@ figure .gameCoverImage {
     color: black;
 }
 
-.review img {
-    margin-right: 10px;
-}
-
 .subjectAndRatingContainer {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: row;
-    margin: 5px;
+    margin: 5px 5px 5px 0;
 }
 
 .subjectAndRatingContainer h4 {
     margin-right: 20px;
 }
 
+.reviewContentContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin: 5px 0 5px 0;
+}
+
 .description {
-    width: 600px;
+    width: 50%;
     height: auto;
     margin-top: 5px;
     margin-bottom: 5px; 
@@ -543,4 +553,106 @@ td {
 
 #allReviewTable tbody tr td:nth-child(2) {
     width: 25%;
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        height: auto;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    header nav menu li {
+        padding: 10px 0 10px 0;
+    }
+    main, #notIndexMain {
+        padding-top: 400px;
+    }
+    footer {
+        height: 30vh;
+    }
+    footer nav menu {
+        flex-direction: column;
+    }
+
+    footer nav menu li {
+        margin: 20px 0 20px 0;
+    }
+
+    footer nav menu li a:first-child {
+        margin-right: 0;
+    }
+    
+    footer nav menu li a:last-child {
+        margin-left: 0;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    #searchForm {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    #categoryContainer {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        height: 150vh;
+    }
+
+    #categoryContainer section {
+        border-top: 5px solid #228b22;
+        border-bottom: 5px solid #228b22;
+        width: 100%;
+    }
+
+    #categoryContainer section form input {
+        font-size: 0.9em;
+    }
+
+    #desktopNav {
+        display: none;
+    }
+
+    #mobileNav {
+        display: flex;
+    }
+
+    #editAndDeleteContainer, #mobileNav nav menu {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #searchForm, #mobileNav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #categoryContainer2 {
+        height: 85vh;
+    }
+
+    .gameCoverImage {
+        width: 200px;
+    }
+
+    .review {
+        flex-direction: column;
+    }
+
+    .description {
+        width: 100%;
+    }
+
+    .specialGameContainer {
+        flex-direction: column;
+        margin-bottom: 250px;
+    }
 }
