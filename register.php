@@ -96,9 +96,13 @@
             $validPassword = $validate->validPassword($password);
             $availableEmail = $validate->availableEmail($email, $accountData);
             $samePassword = $validate->samePasswords($password, $confirmPass);
+            $lengthMessage = $validate->checkLength(array("Account Name", "Email", "First Name", "Last Name", "Password"), array($accountName, $email, $firstName, $lastName, $password), array(150, 50, 50, 100, 255));
     
-            if ($emptyMessage != "") {
+            if ($emptyMessage != null) {
                 echo "<p>$emptyMessage</p>";
+                echo "<a href='javascript:self.history.back();'> Go Back </a>";
+            } else if ($lengthMessage != null) {
+                echo "<p>$lengthMessage</p>";
                 echo "<a href='javascript:self.history.back();'> Go Back </a>";
             } elseif ($validBirthDate == false) {
                 echo "<p> Date of birth is invalid </p>";

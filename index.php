@@ -86,7 +86,7 @@
 
             $rowCount = $gameData->rowCount();
 
-            $randomNum = rand(7, $rowCount);
+            $randomNum = rand(1, $rowCount); 
             $oldPriceStart = rand(10, 60);
             $oldPriceEnd = rand(0, 99);
 

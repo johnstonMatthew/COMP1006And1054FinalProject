@@ -7,7 +7,7 @@
 <main id="notIndexMain">
     <section id="aboutPageHistory">
         <h2> History </h2>
-        <p> Smoke was founded by a group a innovative students who once worked at a competitor of Smoke. They were unhappy with the working conditions and decided that they have had enough. So they took their experience working at the competitor and poured their genius and innovation into Smoke, an innovative new take on an online games launcher. Smoke offers equal opportunity for game developers to display their creativity. Having seen the bias towards triple A studios in the 'real industry'. Smoke strives for </p>
+        <p> Smoke was founded by a group a innovative students who once worked at a competitor of Smoke. They were unhappy with the working conditions and decided that they have had enough. So they took their experience working at the competitor and poured their genius and innovation into Smoke, an innovative new take on an online games launcher. Smoke offers equal opportunity for game developers to display their creativity. Having seen the bias towards triple A studios in the 'real industry'. Smoke strives for a free place for gamers to express their opinions about games and express their own ideas and morals when publishing their games. Free from corporate influence and free from corporate pressures </p>
     </section>
 
     <form id="aboutForm">

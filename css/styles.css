@@ -455,6 +455,10 @@ fieldset input, fieldset button, form input, form button {
     flex-direction: column;
 }
 
+#errorMessage {
+    padding-bottom: 100px;
+}
+
 /* ----- Classes ----- */
 .coverImageContainer {
     width: 100%;
