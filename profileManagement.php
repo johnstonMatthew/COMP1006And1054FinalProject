@@ -181,7 +181,7 @@
                 </div>
 
                 <div>
-                    <label for="file"> Add Profile Picture </label>
+                    <label for="file"> Edit Profile Picture </label>
                     <input type="file" name="file" id="file">
                 </div>
 

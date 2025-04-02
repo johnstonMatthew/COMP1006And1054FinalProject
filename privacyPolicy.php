@@ -5,7 +5,7 @@
 ?>
 
 <!-- page main -->
-<main id="notIndexMain">
+<main id="notIndexMain" class="termsAndpolicy">
     <section>
         <div>
             <h3> Privacy Policy </h3>

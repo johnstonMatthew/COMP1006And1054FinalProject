@@ -511,11 +511,16 @@ figure .gameCoverImage {
     color: black;
 }
 
+.review h4 {
+    width: 75%;
+}
+
 .subjectAndRatingContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    width: 100%;
     margin: 5px 5px 5px 0;
 }
 
@@ -541,6 +546,24 @@ figure .gameCoverImage {
 
 .passwordText {
     font-size: 0.6em;
+}
+
+.termsAndpolicy div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin: 30px 0;
+}
+
+.termsAndpolicy p {
+    width: 75%;
+}
+
+.termsAndpolicy li {
+    list-style-type: disc;
+    text-align: left;
 }
 
 /* ----- Table Styling ----- */
@@ -683,7 +706,7 @@ td {
     }
 
     #categoryContainer2 {
-        height: 85vh;
+        height: 90vh;
     }
     
     #notIndexMain {

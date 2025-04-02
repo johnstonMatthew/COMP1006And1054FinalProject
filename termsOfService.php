@@ -5,7 +5,7 @@
 ?>
 
 <!-- page main -->
-<main id="notIndexMain">
+<main id="notIndexMain" class="termsAndpolicy">
     <section>
         <h2> Term of Service </h2>
         <div>
